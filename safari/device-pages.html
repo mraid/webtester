@@ -1,0 +1,166 @@
+<html>
+<!--
+/*
+ *  Copyright (c) 2012 The mraid-web-tester project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+-->
+<head>
+	<title>Device Simulator</title>
+	<style type="text/css" media="screen">
+		* {
+			margin:0px;
+			padding:0px;
+		}
+		
+		body {
+			padding-bottom:40px;
+			overflow: hidden;
+			font-family: Arial, Helvetica, sans-serif;
+			position: relative;
+		}
+	
+		#navigation {
+			position:absolute;
+			bottom:0px;
+			left:0px;
+			height: 40px;
+			width:100%;
+			background:black;
+			display:block;
+			z-index: 20;
+		}
+		
+		#pages {
+			width:400%;
+			height:100%;
+			overflow:hidden;
+		}
+		
+		.page {
+			width: 25%;
+			float:left;
+			height:100%;
+			overflow:hidden;
+			position: relative;
+		}
+		
+		#navigation .arrow {
+			position: absolute;
+			top:0px;
+			padding: 12.5px;
+			cursor: pointer;
+		}
+		
+		#navigation .arrow.left {
+			left:0px;
+		}
+		
+		#navigation .arrow.right {
+			right:0px;
+		}
+		
+		h1 {
+			margin: 10px 10px 5px 10px;
+			text-transform: uppercase;
+			font-size: 1.2em;
+		}
+		
+		p {
+			margin: 0 10px 10px 10px;
+		}
+	</style>
+</head>
+<body style="background:white;">
+	<div id="pages">
+		<div class="page">
+			<h1>MRAID Web Tester</h1>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. </p>
+		</div>
+		<div class="page">
+			<h1>MRAID Web Tester Page 2</h1>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. </p>
+			<div id="maxArea" style="height: 100%; width: 100%; overflow: hidden; position: absolute; top: 0; left:0px;">
+				<div id="adContainer" class="adcontainer" data-isviewable="false" style="position:absolute; padding:0px; margin:0px; background-color:transparent;">
+					<div id="adResizeContainer" style="overflow:hidden; padding:0px; margin:0px; height: 100%; width: 100%:">
+						<a id="closeEventRegion" style="height: 50px; width: 50px; display: none; text-decoration: none; position: absolute; top: 0; right: 0;"></a>
+						<iframe id="adFrame" style="overflow:hidden; width: 100%; height: 100%; padding:0px; margin:0px; background-color:transparent;" scrolling="no" frameBorder="0"></iframe>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="page">
+			<h1>Page 3</h1>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. </p>
+		</div>
+		<div class="page">
+			<h1>Page 4</h1>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. </p>
+		</div>
+	</div>
+	<div id='navigation'>
+		<img class="arrow left" src="img/ArrowLeft.png" />
+		<img class="arrow right" src="img/ArrowRight.png" />
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		function setNavigation() {
+			window.resizeBy(0,40);
+		}
+	
+		(function () {
+			var leftArrows = document.getElementsByClassName('left'),
+				rightArrows = document.getElementsByClassName('right'),
+				container = document.getElementById('pages'),
+				pages = container.getElementsByClassName('page'),
+				numberOfPages = container.childElementCount,
+				currentPage = 0,
+				adcontainer = document.getElementById('adContainer'),
+				isViewable = false;
+				
+			window.onresize = function () {
+				goToSlide(currentPage);
+			};
+			
+			for (var i = 0, arrow; arrow = leftArrows[i]; i++) {
+				arrow.addEventListener('click', moveLeft);
+			}
+			for (var i = 0, arrow; arrow = rightArrows[i]; i++) {
+				arrow.addEventListener('click', moveRight);
+			}
+			goToSlide(currentPage);
+			
+			function moveLeft () {
+				if (currentPage < 1) return;
+				goToSlide(--currentPage);
+			}
+			
+			function moveRight () {
+				if (currentPage+1 >= numberOfPages) return;
+				goToSlide(++currentPage);
+			}
+			
+			function goToSlide(slide) {
+				var containerWidth = container.offsetWidth;
+				container.style['-webkit-transform'] = ['translateX(-', (containerWidth/numberOfPages) * slide , 'px)'].join('');
+				if (pages[slide].getElementsByClassName('adcontainer').length > 0  && !isViewable) {
+					isViewable = true;
+					adcontainer.setAttribute('data-isViewable', isViewable);
+					var e = document.createEvent('Event');
+					e.initEvent('ViewableChange', false, false);
+					adcontainer.dispatchEvent(e);
+				} else if (isViewable) {
+					isViewable = false;
+					adcontainer.setAttribute('data-isViewable', isViewable);
+					var e = document.createEvent('Event');
+					e.initEvent('ViewableChange', false, false);
+					adcontainer.dispatchEvent(e);
+				}
+			}
+		}());
+	</script> 
+</body>
+</html>

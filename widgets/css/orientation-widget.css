@@ -1,0 +1,31 @@
+/*
+ *  Copyright (c) 2012 The mraid-web-tester project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+/* ORIENTATION */
+#orientationDiv {
+	float:left;
+}
+#orientationToggle {
+	background-image:url(../img/orientation-sprite.png);
+	background-position:0px -150px;
+	background-repeat:no-repeat;
+	width:150px;
+	height:150px;
+	border:thin solid black;
+}
+#orientationToggle.portrait {
+	background-position:0px 0px;
+}
+#orientationTiming {
+	position:relative;
+	top:-151px;
+	left:1px;
+	margin:0;
+	padding:0;
+}

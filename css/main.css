@@ -1,0 +1,258 @@
+/*
+ *  Copyright (c) 2012 The mraid-web-tester project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+html {
+	margin-top: 0px;
+}
+
+body {
+	background-color: #fff;
+	color: #666;
+	font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;	
+	margin: 0px 25px;
+}
+
+header {
+	margin-bottom: 50px;
+	float: right;
+}
+
+footer {
+	clear:both;
+	text-align: center;
+	border-top: 1px solid black;
+	position: fixed;
+	bottom: 0px;
+	left: 0;
+	width: 100%;
+    background-color: white;
+}
+
+h1 {
+	font-size: 36px;
+	color: #222;
+}
+
+h1 span {
+	font-weight: 300;
+	color: #666;
+}
+
+/* NAVIGATION */
+nav {
+	padding-top:38px;
+	margin-bottom: 30px;
+	position: relative;
+}
+
+nav ul {
+	overflow: hidden;
+	padding-bottom: 10px;
+	border-bottom: 5px solid #bbb;
+}
+
+nav li {
+	float: left;
+	margin-right: 35px;
+}
+
+nav li a {
+	color: #666;
+	font-weight: bold;
+}
+
+nav li a:hover,
+nav li a:focus,
+nav li a.current {
+	color: #000;
+}
+
+nav #indicator {
+	position: absolute;
+	left: 34.5px;
+	bottom: 5px;
+	width: 12px;
+	height: 7px;
+	background-image: url('../img/notch.png');
+}
+
+input[class~=dimension] {
+    width: 35px;
+}
+
+div[class~=consoleFrame] {
+    border: solid black 1px;
+    width:100%;
+    height:400px;
+    overflow-x:scroll;
+    overflow-y:scroll;
+}
+
+
+
+.formValues {
+	margin-top:-33px;
+	margin-bottom:2px;
+}
+.formValues2 {
+	margin-top:-65px;
+	margin-bottom:2px;
+}
+
+.t-on {
+	background-image:url(../widgets/img/timer-on.gif);
+	background-repeat:no-repeat;
+	width:32px;
+	height:32px;
+}
+
+.t-off {
+	background-image:url(../widgets/img/timer-off.gif);
+	background-repeat:no-repeat;
+	width:32px;
+	height:32px;
+}
+
+.no-margin {
+	margin:0;
+}
+
+.name {
+	width:240px;
+}
+
+#tabs, #tabs-1, #tabs-2, #tabs-3 {
+}
+
+#content section {
+	display: none;
+}
+
+#content p {
+	margin-bottom: .5em;
+	max-width: 50em;
+	line-height: 1.6;
+}
+
+#adURI, #adFragment {
+    width:70%;
+}
+
+#deviceDiv {
+/*
+	float:left;
+	width:400px;
+	*/
+}
+#propertiesDiv {
+	float: left;
+	width: 400px;
+}
+#propertiesSelectDiv {
+	border: 1px solid black;
+}
+
+#devicePreviewDiv {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#placementDiv {
+	/*
+	float: left;
+	width: 200px;
+	*/
+}
+
+#capabilitiesDiv {
+	/*
+	float: left;
+	width: 300px;
+	*/
+}
+
+#consoleDiv {
+	width:70%;
+	float: left;
+}
+#controlsDiv {
+	width:25%;
+	float: right;
+}
+
+#clearDiv {
+	clear:left;
+}
+
+#title {
+/*	
+	width:200px;
+	height:31px;
+	float:right;
+	margin:7px 5px 0px 0px;
+	font-size:x-large;
+*/
+}
+
+#iab-logo {
+	background-image:url(http://www.iab.net/media/image/new-iab-logo.gif);
+	background-repeat:no-repeat;
+	width:60px;
+	height:31px;
+    margin-left: auto ;
+    margin-right: auto ;
+    background-size: contain;
+}
+#crisp-logo {
+	background-image:url(http://crispmedia.com/themes/crispwireless/images/logo.png);
+	background-repeat:no-repeat;
+	width:90px;
+	height:34px;
+    margin-left: auto ;
+    margin-right: auto ;
+    background-size: contain;	
+}
+#groups-logo {
+	background-image:url(../img/github-logo.png);
+	background-repeat:no-repeat;
+	width:108px;
+	height:25px;
+    margin-left: auto ;
+    margin-right: auto ;	
+    margin-top: 5px;
+    background-size: contain;
+}
+#webtester-logo {
+	background-image:url(../img/iab-webtester-logo.png);
+	background-repeat:no-repeat;
+	width: 259px;
+	height: 75px;
+	background-size: contain;
+}
+
+
+#subtitle {
+	font-size: 12px;
+	position: absolute;
+	left: 277px;
+	top: 33px;
+}
+
+#footerTable {
+	width: 650px ;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+#setup {
+	min-height: 500px;
+}
+#capabilitiesList, #geometryTable, #offscreen {
+	margin-left: 20px;
+}

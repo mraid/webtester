@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>MRAID Test Page</title>
+<!--
+/*
+ *  Copyright (c) 2012 The mraid-web-tester project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+-->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="widgets/css/devicesize-widget.css" type="text/css" />
+    <link rel="stylesheet" href="widgets/css/orientation-widget.css" type="text/css" />
+    <link rel="stylesheet" href="jquery/ui-lightness-jquery-ui.css" type="text/css" />
+
+    <!-- SUPPORTING LIBRARIES -->
+    <script type="text/javascript" src="jquery/jquery.min.1.7.2.js"></script>
+    <script type="text/javascript" src="jquery/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="jquery/jquery.indicated-tabs.js"></script>
+    <script type="text/javascript" src="jquery/jquery.event.drag-2.2.js"></script>
+
+    <!-- PRIMARY CODE -->
+    <script type="text/javascript" src="safari/mraidview.js" language="javascript"></script>
+    <script type="text/javascript" src="safari/main.js" language="javascript"></script>
+
+    <!-- WIDGET RELATED -->
+    <script type="text/javascript" src="widgets/js/devicesize-widget.js" defer="defer"></script>
+    <script type="text/javascript" src="widgets/js/orientation-widget.js" defer="defer"></script>
+    <script type="text/javascript" defer="defer" >
+    console.error = function(msg) {
+        alert(msg)
+    };
+
+	$(document).ready(function(){
+        $('#tabs').indicatedTabs("#content section", {}, {});
+        devicesizeWidget.init();
+        orientationWidget.init();
+        load();
+
+        var adtag = getQueryStringValue('adtag'), 
+            fragmentArea;
+
+        if (adtag  && adtag !== '') {
+            setTimeout(function () {
+                fragmentArea = document.getElementById('adFragment');
+                if (fragmentArea) {
+                    fragmentArea.value =  decodeURIComponent(adtag);
+                }
+            }, 1000);
+        }
+	});
+    </script>
+</head>
+
+<body>
+    <header>
+        <div id="webtester-logo"></div>
+    </header>
+
+    <nav>
+        <ul id='tabs'>
+            <li><a href="#tabs-1">Prepare</a></li>
+            <li><a href="#tabs-2">Flight</a></li>
+            <li><a href="#tabs-3">Test</a></li>
+        </ul>
+        <span id='indicator'></span>
+    </nav>
+
+<form id="setup" name="setup" onsubmit="renderAd(); return false">
+    <div id="content">
+    
+        <section>
+            <h2 class="no-margin">properties</h2>
+            <div id="propertiesDiv">
+                <div id="propertiesSelectDiv">
+                <div id="deviceDiv">
+                    <p class="no-margin">Device geometry:<br/>
+                    <table id="geometryTable"> 
+                        <tr><td class="name">Default ad size (w x h):</td>
+                            <td class="value">
+                                <input id="adWidth" name="adWidth" class="dimension" value="320" onchange="devicesizeWidget.updatePreview()"/>x<input id="adHeight" name="adHeight" class="dimension" value="50" onchange="devicesizeWidget.updatePreview()"/>
+                            </td>
+                        </tr>
+                        <tr><td class="name">Default ad position (top, left):</td>
+                            <td class="value">
+                                <input id="adLeft" name="adLeft" class="dimension" value="0" onchange="devicesizeWidget.updatePreview()"/>,<input id="adTop" name="adTop" class="dimension" value="0" onchange="devicesizeWidget.updatePreview()"/>
+                            </td>
+                        </tr>
+                        <tr><td class="name">Max ad size (w x h):</td>
+                            <td class="value">
+                                <input id="adMaxWidth" name="adMaxWidth" class="dimension" value="320"/>x<input id="adMaxHeight" name="adMaxHeight" class="dimension" value="480" onchange="devicesizeWidget.updatePreview()"/>
+                            </td>
+                        </tr>
+                        <tr><td class="name">Max ad position (top, left):</td>
+                            <td class="value">
+                                <input id="adMaxLeft" name="adMaxLeft" class="dimension" value="0" onchange="devicesizeWidget.updatePreview()"/>,<input id="adMaxTop" name="adMaxTop" class="dimension" value="0" onchange="devicesizeWidget.updatePreview()"/>
+                            </td>
+                        </tr>
+                        <tr><td class="name">Screen size (w x h):</td>
+                            <td class="value">
+                                <input id="screenWidth" name="screenWidth" class="dimension" value="320" onchange="devicesizeWidget.updatePreview()" />x<input id="screenHeight" name="screenHeight" class="dimension" value="480" onchange="devicesizeWidget.updatePreview()" />
+                            </td>
+                        </tr>
+                    </table>
+                    </p>
+                </div>
+                
+                <div id="placementDiv">
+                    <p class="no-margin">API version to test: 
+                        <select name="version">
+                            <option value="1.0">MRAID v1</option>
+                            <option value="2.0" selected="selected">MRAID v2</option>
+                        </select>
+                    </p>
+                    <p class="no-margin">Placement: 
+                        <select name="placement">
+                            <option value="inline" selected="selected">Inline</option>
+                            <option value="interstitial">Interstitial</option>
+                        </select>
+                        </br>
+                        <input id="offscreen" name="offscreen" type="checkbox"/>Off-screen
+                    </p>
+                </div>
+
+                <div id="capabilitiesDiv">
+                    <p class="no-margin">Native features to emulate:
+                        <ul id="capabilitiesList">
+                            <script type="text/javascript">
+                                    var items = [];
+                                    for (var feature in features) {
+                                        items.push('<li><input id="',feature,'" name="',feature,'" type="checkbox" checked="checked" /> ',features[feature].name,'</li>');
+                                    }
+                                    document.write(items.join(''));
+                                </script>
+                        </ul>
+                    </p>
+                </div>
+                </div>
+                <input type="button" value="Next" onclick="nextStep()" />
+            </div>
+            <div></div>
+            <div id="devicePreviewDiv">
+                <!-- div id="resizable-screensize" class="ui-widget-content ui-resizable" style="float:left">
+                    <p class="ui-widget-header">screen size</p>
+                    <div id="resizable-maxAdSize" class="ui-widget-content">
+                        <p class="ui-widget-header">max ad area &amp; placement</p>
+                        <div id="resizable-initialAdSize" class="ui-widget-content">
+                            <p class="ui-widget-header">initial ad area &amp; placement</p>
+                        </div>
+                    </div>
+                </div -->
+
+                <div class="drag" id="resizable-screensize" style="top:100px;left:500px"><p>screen size</p>
+                   <div class="handle SE"></div>
+                </div>
+                <div class="drag" id="resizable-maxAdSize" style="top:100px;left:500px"><p>max ad area &amp; placement</p>
+                   <div class="handle SE"></div>
+                </div>
+                <div class="drag" id="resizable-initialAdSize" style="top:100px;left:500px"><p>initial ad area &amp; placement</p>
+                   <div class="handle SE"></div>
+                </div>
+            </div>
+        </section>
+    
+        <section>
+            <div>
+                <h2 class="no-margin">tag source</h2>
+                <div>
+                    <textarea name="adFragment" id="adFragment" rows="10" placeholder="Your HTML fragment here"></textarea><br/>
+                    <input type="button" value="Render" onclick="renderHtmlAd()" />
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div id="consoleDiv">
+                <h2 class="no-margin">console</h2>
+                <div class="consoleFrame"><code id="console"></code></div>
+                <em><input id="logError" type="checkbox" checked=""> Error
+                    <input id="logInfo" type="checkbox" checked=""> Info
+                    <input type="button" value="Clear" onclick="document.getElementById('console').innerHTML = ''">
+                </em>
+            </div>
+            <div id="controlsDiv">
+                <h2 class="no-margin">controls</h2>
+                <div id="orientationDiv" class="mraid-widget">
+                    <div id="orientationToggle" class="portrait"></div>
+                    <div id="orientationTiming" type="button" onclick="orientationWidget.toggleOrientationTiming()" class="t-off"></div>
+                    <p class="formValues"><span class="value">
+                    <select name="orientationState" id="orientationState">
+                      <option value="portrait">portrait</option>
+                      <option value="landscape">landscape</option>
+                    </select>
+                    </span>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+    
+    </div>
+</form>
+
+    <footer>
+        <table id="footerTable">
+            <tbody>
+                <tr>
+                    <td>This project is Open Source:<br/><div id="groups-logo" onclick="window.open('https://github.com/mraid/webtester')"></div></td>
+                    <td>MRAID specification defined by:<br/><div id="iab-logo" onclick="window.open('http://www.iab.net/mraid/')"></div></td>
+                    <td>Site powered by:<br/><div id="crisp-logo" onclick="window.open('http://crispmedia.com/')"></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </footer>
+
+</body>
+</html>

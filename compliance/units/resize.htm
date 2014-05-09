@@ -1,0 +1,253 @@
+<!-- This IAB MRAID test creative was built by Adam Schuetz, currently Sr. Director of Engineering at AdMarvel on 10/11/2013 -->
+
+<script src="mraid.js"></script> 
+
+<div id="adContainer" style="width:320px;margin:0px;padding:0px;background-color:#ffffff;">
+	
+	<div id="normal" style="display:none;width:318px;height:48px;margin:auto;position:relative;top:0px;left:0px;background-color:#ffffff;border-style:solid;border-width:1px;border-color:rgb(238,50,36);" onclick="javascript:resize();">
+		<img width="97" height="48" style="position:absolute;top:0px;left:0px;" src="http://webtester.mraid.org/compliance/assets/iab-logo.gif" />
+		<div style="position:absolute;top:0px;left:97px;background-color:#fffffff"><div style="width:221px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;">Click to Resize</div></div>
+	</div>
+	
+	<div id="resized" style="display:none;width:318px;height:248px;margin:auto;position:relative;top:0px;left:0px;background-color:#ffffff;border-style:solid;border-width:1px;border-color:rgb(238,50,36);">
+		<img width="97" height="50" style="position:absolute;top:0px;left:0px;" src="http://webtester.mraid.org/compliance/assets/iab-logo.gif"/>
+		<div style="position:absolute;top:5px;right:5px;background-color:rgb(238,50,36);"><div style="width:20px;height:20px;display:table-cell;text-align:center;vertical-align:middle;font-family: Arial, Helvetica, sans-serif;">X</div></div>
+
+		<div style="position:absolute;top:90px;left:56px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:openSite('http://www.iab.net/iab_products_and_industry_services/508676/mobile_guidance/mraid');" >Open URL</div></div>
+		<div style="position:absolute;top:90px;left:113px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:openSite('https://maps.google.com/maps?q=Interactive+Advertising+Bureau+116+East+27th+Street,+7th+Floor+New+York,+New+York+10016&hl=en&sll=37.556536,-122.31563&sspn=0.315717,0.463142&t=m&hq=Interactive+Advertising+Bureau+116+East+27th+Street,+7th+Floor+New+York,+New+York+10016&z=15')" >Click to Map</div></div>
+		<div style="position:absolute;top:90px;left:170px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:clickToAppStore();" >Click to App</div></div>
+		<div style="position:absolute;top:90px;left:227px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:playVideo('http://webtester.mraid.org/compliance/assets/iab-video-small.mp4');" >Play Video</div></div>
+	
+		<div style="position:absolute;top:147px;left:56px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:sendSMS('12123804700');" >SMS</div></div>
+		<div style="position:absolute;top:147px;left:113px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:storePicture('http://webtester.mraid.org/compliance/assets/iab-logo.gif')" >Store Picture</div></div>
+		<div style="position:absolute;top:147px;left:170px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:createCalendarEvent()" >Create Calendar Event</div></div>
+		<div style="position:absolute;top:147px;left:227px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:callNumber('12123804700');" >Click to Call</div></div>
+	</div>
+	
+</div>
+
+<style type="text/css">
+body
+{
+	background-color:#FFFFFF;
+}
+</style>
+
+<script>
+// Expanded Click Action Functions
+function openSite(url)
+{
+	mraid.open(url);
+}
+
+function sendSMS(number)
+{
+	if (!mraid.supports("sms"))
+	{
+		logMRAIDMessage("SMS is not supported on this device.");
+	}
+	else
+	{
+		mraid.open("sms://" + number);
+	}
+}
+
+function callNumber(number)
+{
+	if (!mraid.supports("tel"))
+	{
+		logMRAIDMessage("Calling is not supported on this device.");
+	}
+	else
+	{
+		mraid.open("tel://" + number);
+	}
+}
+
+function playVideo(url)
+{
+	mraid.playVideo(url);
+}
+
+function storePicture(url)
+{
+	if (!mraid.supports("storePicture"))
+	{
+		logMRAIDMessage("storePicture is not supported on this device.");
+	}
+	else
+	{
+		mraid.storePicture(url);
+	}
+}
+
+function createCalendarEvent()
+{
+	if (!mraid.supports("calendar"))
+	{
+		logMRAIDMessage("Calendar is not supported on this device.");
+	}
+	else
+	{
+		var calendarObject = {description:"Mayan Apocalypse/End of World", location:"everywhere", start:"2013-12-21T00:00-05:00", end:"2013-12-22T00:00-05:00"};
+	
+		mraid.createCalendarEvent(calendarObject);
+	}
+}
+
+function clickToAppStore()
+{
+	if (isIOSDevice())
+	{
+		openSite('https://itunes.apple.com/us/app/iab-interactive-advertising/id795405931?mt=8');
+	}
+	else if (isAndroidDevice())
+	{
+		openSite('https://play.google.com/store/apps/details?id=com.coreapps.android.followme.iabevents');
+	}
+	else
+	{
+		logMRAIDMessage("There is no app strong link available for this device.");
+	}
+}
+
+//JS utility function to check if device is android/ios
+function isIOSDevice()
+{
+	return (detectDeviceType("ipod") || detectDeviceType("iphone") || detectDeviceType("ipad"));
+}
+
+function isAndroidDevice()
+{
+	return detectDeviceType("android");
+}
+
+function detectDeviceType(key)
+{
+	var agent = navigator.userAgent.toLowerCase();
+	var index = agent.indexOf(key);
+	return (index > -1);
+}
+
+// Core Ad Functions
+function collapse()
+{
+	mraid.close();
+}
+
+function mraidIsReady()
+{
+	mraid.removeEventListener("ready", mraidIsReady);
+	
+	showMyAd();
+}
+
+function showMyAd()
+{
+	var el = document.getElementById("normal");
+    el.style.display = '';
+
+	mraid.addEventListener("stateChange", updateAd);
+	mraid.addEventListener("sizeChange", sizeChangeHandler);
+	mraid.addEventListener("error", errorHandler);  
+}
+
+function resize()
+{	
+	// Checking default position before doing resize just to see if SDK is reporting correct location
+	var defaultPositionFrame = mraid.getDefaultPosition();
+	var defaultPositionDisplayString = defaultPositionFrame.x + "," + defaultPositionFrame.y + "," + defaultPositionFrame.width + "," + defaultPositionFrame.height;
+	logMRAIDMessage("Default position of banner: " + defaultPositionDisplayString);
+	
+	// Resizing with offset 0,0 so should expand down from banner ideally unless there is not enough space.
+	// If so since allowOffscreen is false it should should go down as much as possible and go up for the rest.
+    mraid.setResizeProperties({"width":320,"height":250,"offsetX":0,"offsetY":0,"allowOffscreen":false});
+    mraid.resize();
+}
+
+function updateAd(state)
+{	
+	if (state == "resized")
+	{
+    	toggleLayer('normal', 'resized');
+	}
+	else if (state == "default")
+	{ 
+		toggleLayer('resized', 'normal');
+	}
+}
+
+function sizeChangeHandler(width, height)
+{
+	// This should get fired whenever the ad is resized	
+	logMRAIDMessage("sizeChange event fired!: width = " + width + ", height = " + height);
+}
+
+function errorHandler(message, action)
+{	
+	logMRAIDMessage("error event fired!: message = " + message + ", action = " + action);
+	
+	if (action == "createCalendarEvent")
+	{
+		logMRAIDMessage("User canceled createCalendEvent action!");	
+	}
+	else if (action == "storePicture")
+	{
+		logMRAIDMessage("User canceled storePicture action!");
+	}
+}
+
+function logMRAIDMessage(message)
+{
+	// Replace this method with whatever logging best works for your test environment
+	console.log("MRAID: " + message);
+}
+
+function toggleLayer(fromLayer, toLayer)
+{
+	var fromElem = document.getElementById(fromLayer);
+	fromElem.style.display = 'none';
+	
+	var toElem = document.getElementById(toLayer);
+	toElem.style.display = '';
+}
+
+window.addEventListener("orientationchange", function ()
+{
+	if (mraid.getState() == "resized")
+	{
+		collapse();
+	}
+});
+
+function setupViewport(width)
+{
+	var element = document.querySelector("meta[name=viewport]");
+	if (!element)
+	{
+		element = document.createElement("meta");
+		element.name = "viewport";
+		element.content = "width=" + width + ", user-scalable=no";
+		document.getElementsByTagName('head')[0].appendChild(element);
+	}
+	else
+	{
+		element.content = "width=" + width + ", user-scalable=no";
+	}
+}
+setupViewport(320);
+
+function doReadyCheck()
+{	
+	if (mraid.getState() == 'loading') 
+	{	
+		mraid.addEventListener("ready", mraidIsReady);  
+	} 
+	else
+	{ 	
+		showMyAd();      
+	}
+}
+
+doReadyCheck();
+</script>

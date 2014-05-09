@@ -1,0 +1,71 @@
+/*
+ *  Copyright (c) 2012 The mraid-web-tester project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+/* DEVICE SIZE */
+	#resizable-screensize { top: 100px; left:420px; width: 320px; height: 480px; background-color:#FFFFFF; position: absolute; top:0px; left:0px}
+	#resizable-screensize>p { width: 320px; text-align: center; margin: 0; background-color:transparent; color:#aaa;  position: absolute; bottom: 0px}
+
+	#resizable-maxAdSize { top: 100px; left:420px; width: 318px; height: 318px; background-color:#aaa; position:absolute; top:0px; left:0px}
+	#resizable-maxAdSize>p { width: 318px; text-align: center; margin: 0; background-color:transparent; position: absolute; bottom: 0px; color: #fff;}
+	
+	#resizable-initialAdSize { top: 100px; left:420px; width: 316px; height: 46px; background-color:#e93217; position:absolute; top:0px; left:0px }
+	#resizable-initialAdSize>p { width: 316px; text-align: center; margin: 0; background-color:transparent;  position: absolute; bottom: 0px; color: #fff}
+
+.drag {
+   position: absolute;  
+   border: 1px solid #000;
+   background: #BCE;
+   height: 58px;
+   width: 58px;
+   top: 120px;
+   cursor: move;
+   }
+.handle {
+   position: absolute;
+   height: 10px;
+   width: 10px;
+   border: 1px solid #000;
+   background: #ccc; 
+   }
+.NW, .NN, .NE {
+   top: 0px;
+   }
+.NE, .EE, .SE {
+   right: 0px;
+   }
+.SW, .SS, .SE {
+   bottom: 0px;
+   }
+.NW, .WW, .SW {
+   left: 0px;
+   }
+.SE, .NW {   
+   cursor: nw-resize;
+   }
+.SW, .NE {
+   cursor: ne-resize;
+   }
+.NN, .SS {
+   cursor: n-resize;
+   left: 50%;
+   margin-left: 0px;
+   }
+.EE, .WW {
+   cursor: e-resize;
+   top: 50%;
+   margin-top: 0px;
+   }   
+.selected {
+   background-color: #ECB;
+   border-color: #B98;
+   }
+.selected .handle {  
+   background-color: #CA9;
+   border-color: #B98;
+   } 
