@@ -1,0 +1,353 @@
+<script type="text/javascript" src="mraid.js" onerror="console.log('mraid.js not found');"></script>
+<script type="text/javascript">
+/* logging helpers */
+
+// global variables help identify log output
+var DEBUG = 1,
+    INFO = 2,
+    ERR = 3;
+
+// $log.it is replacement for console.out
+// supports mirroring output to window.alert, reducing log output by level
+$log = {
+    logLevel : 2,                  //set to reduce output, 0 = all
+    useAlert : false,              //toggle to also output to window.alert
+    preface  : 'logit',            //set to preface all output by $log.it
+
+
+/**
+* $log.it is a replacement for console.out
+* @namespace $log
+* @method it
+* @param {String} msg : message to output to console
+* @param {Number} level : log level for this message
+*/
+    it : function (msg, level) {
+
+        /** @private, toIsoDate converts date/time to ISO format */
+        function toIsoDate(d) {
+            function pad(n) {
+                return n < 10 ? '0' + n : n;
+            }
+            var s = d.getUTCFullYear() + '-'
+                + pad(d.getUTCMonth() + 1) + '-'
+                + pad(d.getUTCDate()) + 'T'
+                + pad(d.getUTCHours()) + ':'
+                + pad(d.getUTCMinutes()) + ':'
+                + pad(d.getUTCSeconds()) + 'Z';
+            return s;
+        }
+
+        /** @private, s is the string value to hold the modified message */
+        var s = '';
+
+        // provide a default level if none provided
+        if (!level) {
+            level = DEBUG;
+        }
+
+        // only output message if level exceeds logLevel property
+        if (level > $log.logLevel) {
+            s = $log.preface + '(' + level + ')-' + toIsoDate(new Date()) + ':' + msg;
+            console.log(s);
+
+            // also send message to alert dialogue if useAlert is set
+            if ($log.useAlert) {
+                alert(s);
+            }
+        }
+    }
+};
+
+/* timers */
+
+// timer namespace holds each instance of the timers 
+//   Each timer is identified by a DOM element name.
+//   When the timer is updated, it automatically populates that DOM element
+//     with a count-up timer value in mm:ss:xx (minutes, seconds, hundreths of seconds).
+$timer = {
+
+    /* local storage for timer instances */
+    instance : [],
+
+    /**
+    * init instantiates the count-up timer for the given id with elapsed time of 0 seconds
+    * @namespace $timer
+    * @method init
+    * @param id string identifier for this timer -- should match a DOM element name
+    */
+    init : function (id) {
+        $timer.instance[id] = {
+            elapsed : 0
+        };
+        return $timer.instance[id].elapsed;
+    },
+
+    /**
+    * updateDisplay updates the DOM of the given id with the elapsed time of the timer with the same id
+    * @namespace $timer
+    * @method updateDisplay
+    * @param id string identifier for this timer which also matches a DOM element name
+    */
+    updateDisplay : function (id) {
+        var display = '00:00:00',
+            el = document.getElementById(id),
+            elapsed,
+            minutes,
+            seconds,
+            tenths;
+
+        //formatting
+        if ($timer.instance[id]) {
+            elapsed = $timer.instance[id].elapsed;
+            minutes = Math.floor(elapsed / (60 * 1000));
+            seconds = Math.floor((elapsed - (minutes * (60 * 1000))) / 1000);
+            tenths = Math.floor((elapsed - (minutes * (60 * 1000)) - (seconds * 1000)) / 10);
+
+            if (minutes < 10) {
+                minutes = '0' + minutes;
+            }
+            if (seconds < 10) {
+                seconds = '0' + seconds;
+            }
+            if (tenths < 10) {
+                tenths  = '0' + tenths;
+            }
+            display = minutes + ':' + seconds + ':' + tenths;
+        } else {
+            $log.it("ERR timer instance '" + id + "'' not found.", ERR);
+        }
+
+        if (el) {
+            el.innerHTML = display;
+        } else {
+            $log.it("ERR element '" + id + "'' not found.", ERR);
+        }
+
+        return display;
+    },
+
+    /**
+    * start begins or restarts the count-up timer with the given id
+    * @namespace $timer
+    * @method start
+    * @param id string identifier for timer to begin
+    */
+    start : function (id) {
+        if ($timer.instance[id]) {
+            $log.it("start timer instance " + id, DEBUG);
+            $timer.instance[id].interval = setInterval(function () {
+                $timer.instance[id].elapsed += 10;
+                $timer.updateDisplay(id);
+            }, 10);
+        } else {
+            $log.it("ERR timer instance '" + id + "'' not found.", ERR);
+        }
+        return id;
+    },
+
+    /**
+    * stop stops the count-up timer with the given id
+    * @namespace $timer
+    * @method stop
+    * @param id string identifier for timer to stop
+    */
+    stop : function (id) {
+        if ($timer.instance[id]) {
+            $log.it("stop timer instance " + id, DEBUG);
+            clearInterval($timer.instance[id].interval);
+        } else {
+            $log.it("ERR timer instance '" + id + "'' not found.", ERR);
+        }
+        return id;
+    }
+}
+
+
+// $mraid is a wrapper for mraid
+// all mraid methods are protected with try/catch blaocks to help report expected errors
+// methods are limited to only those used in this tester
+$mraid = {
+
+/**
+* addEventListener is a wrapper for mraid.addEventListener
+* @namespace $mraid
+* @method addEventListener
+*/
+    addEventListener : function (evt, listener) {
+        $log.it('$mraid.addEventListener', DEBUG);
+        try {
+            mraid.addEventListener(evt, listener);
+            $log.it('OK mraid.addEventListener(' + evt + ')', INFO);
+        } catch (e) {
+            $log.it('ERR calling addEventListener for ' + evt + ', ' + e.message, ERR);
+            $tester.errorListener(e.message, 'addEventListener');
+        }
+    },
+
+/**
+* isViewable is a wrapper for mraid.isViewable
+* @namespace $mraid
+* @method isViewable
+*/
+    isViewable : function () {
+        $log.it('$mraid.isViewable', DEBUG);
+        try {
+            var v = mraid.isViewable();
+            $log.it('OK mraid.isViewable()', INFO);
+            return v;
+        } catch (e) {
+            $log.it('ERR calling isViewable' + ', ' + e.message, ERR);
+            $tester.errorListener(e.message, 'isViewable');
+        }
+    },
+
+/**
+* getState is a wrapper for mraid.getState
+* @namespace $mraid
+* @method getState
+*/
+    getState : function () {
+        $log.it('$mraid.getState', DEBUG);
+        try {
+            var s = mraid.getState();
+            $log.it('OK mraid.getState()', INFO);
+            return s;
+        } catch (e) {
+            $log.it('ERR calling getState' + ', ' + e.message, ERR);
+            $tester.errorListener(e.message, 'getState');
+        }
+    }
+};
+
+/////////////////////////////////////////////////////////////////////
+// $tester object-class contains all the script to exercise the tests
+// it defines the onclick methods which start each test
+// use the .init() method to initialize the logging
+
+$tester = {
+/**
+* init is the public method to start the tester
+*   it turns on logging, checks for mraid, and attaches the click event listeners
+*
+* @param {boolean} isAlertOn set to true to echo all console output to alert dialogs
+* @param {Numeric} logLevel use the globals DEBUG, WARN, ERR to limit the console output by excluding that level, 0=ALL
+* @param {String} logPreface identify all the log output with this preface string 
+* @namespace $tester
+* @method init
+*/
+    init : function (isAlertOn, logLevel, logPreface) {
+
+        //turn on logging
+        $log.useAlert = isAlertOn;
+        $log.logLevel = logLevel;
+        $log.preface = logPreface;
+        $log.it('init', DEBUG);
+
+        //confirm that mraid is available
+        switch ($mraid.getState()) {
+        case 'default':
+            //mraid available and ready
+            $log.it('OK mraid state is ready', INFO);
+
+            //prepare listeners
+            $mraid.addEventListener('error', $tester.errorListener);
+            $mraid.addEventListener('viewableChange', $tester.viewableListener);
+
+            //start instances based on initial viewability
+            $timer.init('onscreentimer');
+            $timer.init('offscreentimer');
+            $tester.viewableListener($mraid.isViewable());
+            break;
+        case 'loading':
+            //mraid not yet available, register a listener and try again
+            $mraid.addEventListener('ready', $tester.init);
+            $log.it('?? mraid state is not ready, using listener to wait for ready state', INFO);
+            return;
+        default:
+            //mraid state is unknown
+            $log.it('ERR mraid state is not recognized - tests cannot continue', ERR);
+        }
+
+    },
+
+/**
+* viewableListener is the generic listener for the mraid 'viewableChange' event to start and stop the right timers
+* @namespace $tester
+* @method viewableListener
+*/
+    viewableListener : function (viewableState) {
+        $log.it('OK viewable changed to: ' + viewableState + " (" + typeof(viewableState) + ")", INFO);
+        if (viewableState) {
+            $log.it('Use only the ON screen timer', DEBUG);
+            $timer.stop('offscreentimer');
+            $timer.start('onscreentimer');
+        } else {
+            $log.it('Use only the OFF screen timer', DEBUG);
+            $timer.stop('onscreentimer');
+            $timer.start('offscreentimer');
+        }
+    },
+
+/**
+* errorListener is the generic listener for the mraid 'error' event to report info to the console, and reset the ad as needed
+* @namespace $tester
+* @method errorListener
+*/
+    errorListener : function (msg, action) {
+        //output the error message
+        $log.it('ERR mraid error caught from ' + action + ': ' + msg, ERR);
+    },
+
+};
+</script>
+
+<style type="text/css">
+	html, body {
+		height: 100%;
+        margin: 0px;
+	}
+
+	#fill-wrapper {
+		min-height: 100%; 
+        background-color: red;
+	}
+
+    #center-wrapper {
+        width: 250px;
+        height: 44px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 2px;
+        bottom: 0;
+        margin: auto;
+
+        max-width: 100%;
+        max-height: 100%;
+        overflow: auto;
+
+    }
+
+    .timer {
+        text-align: center;
+        background-color: white;
+        border: 1px solid black;
+        font-family: Courier;
+        font-size: 13px;
+        height: 20px;
+    }
+</style>
+
+<div id="fill-wrapper">
+    <div id="center-wrapper">
+        <div class="timer">Off screen timer: <span id="offscreentimer">00:00:00</span></div>
+
+        <div class="timer">On screen timer: &nbsp;<span id="onscreentimer">00:00:00</span></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+/* initialize manually to simulate ad environments where document ready events may have already fired */
+        $tester.init(false, 0, 'FullPageTester');
+</script>
