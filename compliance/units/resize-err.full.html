@@ -223,7 +223,7 @@ $mraid = {
             // call mraid
             mraid.resize();
 
-            $log.it('OK mraid.resize()', INFO);
+            $log.it('mraid.resize()', INFO);
         } catch (e) {
             $log.it('ERR calling resize' + ', ' + e.message, ERR);
             $tester.errorListener(e.message, 'resize');
@@ -239,7 +239,7 @@ $mraid = {
         $log.it('$mraid.getResizeProperties', DEBUG);
         try {
             var p = mraid.getResizeProperties();
-            $log.it('OK mraid.getResizeProperties(' + p.width + ',' + p.height + ')', INFO);
+            $log.it('mraid.getResizeProperties(' + p.width + ',' + p.height + ')', INFO);
             return p;
         } catch (e) {
             $log.it('ERR calling getResizeProperties' + ', ' + e.message, ERR);
@@ -256,7 +256,7 @@ $mraid = {
         $log.it('$mraid.setResizeProperties', DEBUG);
         try {
             mraid.setResizeProperties(props);
-            $log.it('OK mraid.setResizeProperties()', INFO);
+            $log.it('mraid.setResizeProperties()', INFO);
         } catch (e) {
             $log.it('ERR calling setResizeProperties' + ', ' + e.message, ERR);
             $tester.errorListener(e.message, 'setResizeProperties');
@@ -274,7 +274,7 @@ $mraid = {
         $log.it('$mraid.addEventListener', DEBUG);
         try {
             mraid.addEventListener(evt, listener);
-            $log.it('OK mraid.addEventListener()', INFO);
+            $log.it('mraid.addEventListener()', INFO);
         } catch (e) {
             $log.it('ERR calling addEventListener for ' + evt + ', ' + e.message, ERR);
             $tester.errorListener(e.message, 'addEventListener');
@@ -290,7 +290,7 @@ $mraid = {
         $log.it('$mraid.getVersion', DEBUG);
         try {
             var v = mraid.getVersion();
-            $log.it('OK mraid.getVersion()', INFO);
+            $log.it('mraid.getVersion()', INFO);
             return v;
         } catch (e) {
             $log.it('ERR calling getVersion' + ', ' + e.message, ERR);
@@ -307,7 +307,7 @@ $mraid = {
         $log.it('$mraid.getMaxSize', DEBUG);
         try {
             var o = mraid.getMaxSize();
-            $log.it('OK mraid.getMaxSize(' + o.width + ',' + o.height + ')', INFO);
+            $log.it('mraid.getMaxSize(' + o.width + ',' + o.height + ')', INFO);
             return o;
         } catch (e) {
             $log.it('ERR calling getMaxSize' + ', ' + e.message, ERR);
@@ -324,7 +324,7 @@ $mraid = {
         $log.it('$mraid.getState', DEBUG);
         try {
             var s = mraid.getState();
-            $log.it('OK mraid.getState()', INFO);
+            $log.it('mraid.getState()', INFO);
             return s;
         } catch (e) {
             $log.it('ERR calling getState' + ', ' + e.message, ERR);
@@ -341,7 +341,7 @@ $mraid = {
         $log.it('$mraid.close', DEBUG);
         try {
             var s = mraid.close();
-            $log.it('OK mraid.close()', INFO);
+            $log.it('mraid.close()', INFO);
             return s;
         } catch (e) {
             $log.it('ERR calling close' + ', ' + e.message, ERR);
@@ -378,7 +378,7 @@ $tester = {
         switch ($mraid.getState()) {
         case 'default':
             //mraid available and ready
-            $log.it('OK mraid state is ready', INFO);
+            $log.it('mraid state is ready', INFO);
             break;
         case 'loading':
             //mraid not yet available, register a listener and try again
@@ -443,7 +443,7 @@ $tester = {
 
         //set mraid container back to default state
         if ($mraid.getState === 'resized') {
-            $log.it('OK reset the state back from resize', INFO);
+            $log.it('reset the state back from resize', INFO);
             $mraid.close();
         }
     },
@@ -454,7 +454,7 @@ $tester = {
 * @method stateListener
 */
     stateListener : function (state) {
-        $log.it('OK state changed to: ' + state, INFO);
+        $log.it('state changed to: ' + state, INFO);
         if (state === 'default') {
             $tester.setDefault(false);
         }

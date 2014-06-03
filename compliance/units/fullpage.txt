@@ -178,7 +178,7 @@ $mraid = {
         $log.it('$mraid.addEventListener', DEBUG);
         try {
             mraid.addEventListener(evt, listener);
-            $log.it('OK mraid.addEventListener(' + evt + ')', INFO);
+            $log.it('mraid.addEventListener(' + evt + ')', INFO);
         } catch (e) {
             $log.it('ERR calling addEventListener for ' + evt + ', ' + e.message, ERR);
             $tester.errorListener(e.message, 'addEventListener');
@@ -194,7 +194,7 @@ $mraid = {
         $log.it('$mraid.isViewable', DEBUG);
         try {
             var v = mraid.isViewable();
-            $log.it('OK mraid.isViewable()', INFO);
+            $log.it('mraid.isViewable()', INFO);
             return v;
         } catch (e) {
             $log.it('ERR calling isViewable' + ', ' + e.message, ERR);
@@ -211,7 +211,7 @@ $mraid = {
         $log.it('$mraid.getState', DEBUG);
         try {
             var s = mraid.getState();
-            $log.it('OK mraid.getState()', INFO);
+            $log.it('mraid.getState()', INFO);
             return s;
         } catch (e) {
             $log.it('ERR calling getState' + ', ' + e.message, ERR);
@@ -248,7 +248,7 @@ $tester = {
         switch ($mraid.getState()) {
         case 'default':
             //mraid available and ready
-            $log.it('OK mraid state is ready', INFO);
+            $log.it('mraid state is ready', INFO);
 
             //prepare listeners
             $mraid.addEventListener('error', $tester.errorListener);
@@ -277,7 +277,7 @@ $tester = {
 * @method viewableListener
 */
     viewableListener : function (viewableState) {
-        $log.it('OK viewable changed to: ' + viewableState + " (" + typeof(viewableState) + ")", INFO);
+        $log.it('viewable changed to: ' + viewableState + " (" + typeof(viewableState) + ")", INFO);
         if (viewableState) {
             $log.it('Use only the ON screen timer', DEBUG);
             $timer.stop('offscreentimer');
