@@ -1,29 +1,24 @@
-<!-- This IAB MRAID test creative was built by Adam Schuetz, currently Sr. Director of Engineering at AdMarvel on 10/11/2013 -->
-
-<script src="mraid.js"></script> 
-
+<script src="mraid.js" type="text/javascript"></script> 
 <div id="adContainer" style="width:320px;margin:0px;padding:0px;background-color:#ffffff;">
-	
 	<div id="normal" style="display:none;width:318px;height:48px;margin:auto;position:relative;top:0px;left:0px;background-color:#ffffff;border-style:solid;border-width:1px;border-color:rgb(238,50,36);" onclick="javascript:resize();">
-		<img width="97" height="48" style="position:absolute;top:0px;left:0px;" src="http://webtester.mraid.org/compliance/assets/iab-logo.gif" />
+		<img width="97" height="48" style="position:absolute;top:0px;left:0px;" src="http://mraid.iab.net/compliance/units/iab-logo.gif" />
 		<div style="position:absolute;top:0px;left:97px;background-color:#fffffff"><div style="width:221px;height:48px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;">Click to Resize</div></div>
 	</div>
 	
 	<div id="resized" style="display:none;width:318px;height:248px;margin:auto;position:relative;top:0px;left:0px;background-color:#ffffff;border-style:solid;border-width:1px;border-color:rgb(238,50,36);">
-		<img width="97" height="50" style="position:absolute;top:0px;left:0px;" src="http://webtester.mraid.org/compliance/assets/iab-logo.gif"/>
+		<img width="97" height="50" style="position:absolute;top:0px;left:0px;" src="http://mraid.iab.net/compliance/units/iab-logo.gif"/>
 		<div style="position:absolute;top:5px;right:5px;background-color:rgb(238,50,36);"><div style="width:20px;height:20px;display:table-cell;text-align:center;vertical-align:middle;font-family: Arial, Helvetica, sans-serif;">X</div></div>
 
 		<div style="position:absolute;top:90px;left:56px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:openSite('http://www.iab.net/iab_products_and_industry_services/508676/mobile_guidance/mraid');" >Open URL</div></div>
 		<div style="position:absolute;top:90px;left:113px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:openSite('https://maps.google.com/maps?q=Interactive+Advertising+Bureau+116+East+27th+Street,+7th+Floor+New+York,+New+York+10016&hl=en&sll=37.556536,-122.31563&sspn=0.315717,0.463142&t=m&hq=Interactive+Advertising+Bureau+116+East+27th+Street,+7th+Floor+New+York,+New+York+10016&z=15')" >Click to Map</div></div>
 		<div style="position:absolute;top:90px;left:170px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:clickToAppStore();" >Click to App</div></div>
-		<div style="position:absolute;top:90px;left:227px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:playVideo('http://webtester.mraid.org/compliance/assets/iab-video-small.mp4');" >Play Video</div></div>
+		<div style="position:absolute;top:90px;left:227px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:playVideo('http://mraid.iab.net/compliance/units/iab-video-small.mp4');" >Play Video</div></div>
 	
 		<div style="position:absolute;top:147px;left:56px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:sendSMS('12123804700');" >SMS</div></div>
-		<div style="position:absolute;top:147px;left:113px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:storePicture('http://webtester.mraid.org/compliance/assets/iab-logo.gif')" >Store Picture</div></div>
+		<div style="position:absolute;top:147px;left:113px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:storePicture('http://mraid.iab.net/compliance/units/img.iab-logo.gif')" >Store Picture</div></div>
 		<div style="position:absolute;top:147px;left:170px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:createCalendarEvent()" >Create Calendar Event</div></div>
 		<div style="position:absolute;top:147px;left:227px;background-color:rgb(238,50,36);"><div style="width:37px;height:37px;display:table-cell;text-align:center;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:8px;" onclick="javascript:callNumber('12123804700');" >Click to Call</div></div>
 	</div>
-	
 </div>
 
 <style type="text/css">

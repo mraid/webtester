@@ -349,5 +349,5 @@ $tester = {
 
 <script type="text/javascript">
 /* initialize manually to simulate ad environments where document ready events may have already fired */
-        $tester.init(false, 0, 'FullPageTester');
+    $tester.init(false, 0, 'FullPageTester');
 </script>

@@ -1,0 +1,211 @@
+<script src="mraid.js" type="text/javascript"></script> 
+<div id="container" style="width:100%;height:100%;background-color:#000000;">	
+	<video id="adVideo" webkit-playsinline src="http://once.unicornmedia.com/now/od/auto/d8371d05-0b04-42fc-892f-b0e9ad6db2b5/6fd31a0f-775a-49ca-849b-228d70b5f9ac/87c56e71-2005-473c-a8da-2d45053413a9/578-1588-iab-video-small.mp4"></video>
+</div>
+
+<style type="text/css">
+body
+{
+	background-color:#000000;
+}
+</style>
+
+<script language="javascript" type="text/javascript">
+document.getElementById("container").addEventListener('touchmove', function(event) { event.preventDefault(); }, false);
+
+function mraidIsReady()
+{
+	mraid.removeEventListener("ready", mraidIsReady);
+	
+	prepareMyAd();
+}
+
+function prepareMyAd()
+{	
+	// Right now it is assumed this SDK supports HTML5 video but may not support inline
+	if (mraid.supports("inlineVideo"))
+	{
+		// Hide close button
+		mraid.useCustomClose(true);
+	}
+	
+	// Force landscape orientation
+	mraid.setOrientationProperties({"allowOrientationChange":false, "forceOrientation":"landscape"});
+	
+	// Add event listeners
+	mraid.addEventListener("stateChange", handleStateChanged);
+	mraid.addEventListener("error", errorHandler); 
+		
+	// See if ad is visible yet otherwise wait for it to be visible.
+	if (!mraid.isViewable())
+	{
+		mraid.addEventListener("viewableChange", isInterstitialDisplayed); 
+	}
+	else
+	{
+		mraid.addEventListener("viewableChange", viewableChangeAfterDisplay);
+		showMyAd();
+	}
+}
+
+function handleStateChanged(state)
+{	
+	logMRAIDMessage("state change event fired!: state = " + state);
+	
+	if (state == "hidden")
+	{
+		logMRAIDMessage("Interstitial has become hidden which means interstitial was closed.");
+		
+		// Make sure to pause video in case it takes time for the web view to be destroyed after getting hidden.
+		var video = document.getElementById("adVideo");
+		if (video && !video.paused) 
+		{
+    		video.pause();
+		}
+	}
+}
+
+function errorHandler(message, action)
+{	
+	logMRAIDMessage("error event fired!: message = " + message + ", action = " + action);
+}
+
+function logMRAIDMessage(message)
+{
+	// Replace this method with whatever logging best works for your test environment
+	console.log("MRAID: " + message);
+}
+
+function isInterstitialDisplayed(displayed)
+{	
+	if (displayed)
+	{
+		mraid.removeEventListener("viewableChange", isInterstitialDisplayed);
+		mraid.addEventListener("viewableChange", viewableChangeAfterDisplay);
+		showMyAd();
+	}
+}
+
+function viewableChangeAfterDisplay(visible)
+{
+	// This makes sure the video pauses/resumes on any visibility changes
+	var video = document.getElementById("adVideo");
+	if (!visible)
+	{	
+		logMRAIDMessage("Interstitial has become not viewable after having been displayed.");
+		if (video && !video.paused) 
+		{
+    		video.pause();
+		}
+	}
+	else
+	{
+		logMRAIDMessage("Interstitial has become viewable again after having been displayed.");
+		if (video && video.paused) 
+		{
+    		video.play();
+		}
+	}
+}
+
+function showMyAd()
+{
+	// Adjust dimensions for device using current orientation to find landscape values
+	var screenSize = mraid.getScreenSize();
+	logMRAIDMessage("Reported screen size: width = " + screenSize.width + ", height = " + screenSize.height);
+	var screenLandscapeWidth = screenSize.width;
+	var screenLandscapeHeight = screenSize.height;
+	document.getElementById("container").style.width = screenLandscapeWidth + "px";
+	document.getElementById("container").style.height = screenLandscapeHeight + "px";
+	
+	// First video to fit full width and and then scale height
+	var videoWidth = 320;
+	var videoHeight = 180;
+	var videoRatio = videoWidth/videoHeight;
+	var newWidth = videoWidth;
+	var newHeight = videoHeight;
+	if(videoWidth > screenLandscapeWidth)
+	{
+		newWidth = screenLandscapeWidth;
+		newHeight = newWidth/videoRatio;
+	}
+	else
+	{
+		newWidth = Math.max(screenLandscapeWidth, videoWidth);
+		newHeight = newWidth/videoRatio;
+	}
+	
+	// If scaled height too big then scale back until it fits
+	if (newHeight > screenLandscapeHeight)
+	{
+		videoRatio = videoHeight/videoWidth;
+		
+		newHeight = screenLandscapeHeight;
+		newWidth = newHeight/videoRatio;
+	}
+
+	// Calculate margins to center
+	var topBottomMargins = (screenLandscapeHeight - newHeight)/2.0;
+	var leftRightMargins = (screenLandscapeWidth - newWidth)/2.0;
+	
+	// Update video dimensions
+	var video = document.getElementById("adVideo");
+	video.style.width = newWidth + "px";
+	video.style.height = newHeight + "px";
+	video.style.margin = topBottomMargins + "px " + leftRightMargins + "px";
+	
+    // Count impressions at this point and play video ad
+    video.play();
+    
+    // Any clicks will restart the video if paused
+    video.addEventListener('click', function()
+	{
+		var video = document.getElementById("adVideo");
+		if (video && video.paused) 
+		{
+    		video.play();
+		}
+	});
+    
+    // If we can play inline then we can auto close the ad on finish
+    if (mraid.supports("inlineVideo"))
+	{
+		// Close video on finish
+		video.addEventListener('ended', function()
+		{
+			mraid.close();
+		});
+	}
+}
+
+function setupViewport()
+{
+	var element = document.querySelector("meta[name=viewport]");
+	if (!element)
+	{
+		element = document.createElement("meta");
+		element.name = "viewport";
+		element.content = "width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1";
+		document.getElementsByTagName('head')[0].appendChild(element);
+	}
+	else
+	{
+		element.content = "width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1";
+	}
+}
+setupViewport();
+
+function doReadyCheck()
+{	
+	if (mraid.getState() == 'loading') 
+	{	
+		mraid.addEventListener("ready", mraidIsReady);  
+	} 
+	else
+	{ 	
+		prepareMyAd();      
+	}
+}
+
+doReadyCheck();
+</script>

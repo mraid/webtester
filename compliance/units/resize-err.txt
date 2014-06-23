@@ -1,127 +1,120 @@
-<!-- 
-This IAB MRAID test creative was built by Nathan Carver, currently VP of Engineering at Crisp Media, Inc. on March 26, 2014.
--->
+<!-- use script tag to identify this creative as MRAID -->
+<script type="text/javascript" src="mraid.js" onerror="console.log('mraid.js not found');"></script>
 
-<!-- -------------------------------------------------------------------------- -->    
-<!-- SNIPPET STARTS HERE FOR CUT-AND-PASTE TO USE THIS PAGE AS AN HTML FRAGMENT -->    
-<!-- -------------------------------------------------------------------------- -->    
-    <!-- use script tag to identify this creative as MRAID -->
-    <script type="text/javascript" src="mraid.js" onerror="console.log('mraid.js not found');"></script>
+<!-- styles for creative -->
+<style type="text/css">
+.buttonLabel { /* text on buttons */
+    font: 11px arial;
+    margin-top: 10px;
+}
+.webdingFont { /* font for arrows */
+    font-size: 18px;
+    margin-top: 4px;
+}
+.twoLineLabelA { /* when text on buttons is expected to wrap */
+    margin-top: 2px;
+}
+.twoLineLabelB { /* when text on buttons is expected to wrap */
+    margin-top: 4px;
+}
+.instruction { /* text on background giving instructions */
+    float: left;
+    font: 12px arial;
+    margin-left: 4px;
+    margin-top: 12px;
+    position: relative;
+    width: 70px;
+    font-weight: bold;
+}
+.button { /* button background */
+    background-color: white;
+    box-shadow: 1px 1px 2px;
+    direction: pointer;
+    cursor: pointer;
+    float: left;
+    height: 34px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 8px;
+    position: relative;
+    text-align: center;
+    width: 34px;
+    border: solid #FF3818 2px;
+    border-radius: 6px;
+}
 
-    <!-- styles for creative -->
-    <style type="text/css">
-    .buttonLabel { /* text on buttons */
-        font: 11px arial;
-        margin-top: 10px;
-    }
-    .webdingFont { /* font for arrows */
-        font-size: 18px;
-        margin-top: 4px;
-    }
-    .twoLineLabelA { /* when text on buttons is expected to wrap */
-        margin-top: 2px;
-    }
-    .twoLineLabelB { /* when text on buttons is expected to wrap */
-        margin-top: 4px;
-    }
-    .instruction { /* text on background giving instructions */
-        float: left;
-        font: 12px arial;
-        margin-left: 4px;
-        margin-top: 12px;
-        position: relative;
-        width: 70px;
-        font-weight: bold;
-    }
-    .button { /* button background */
-        background-color: white;
-        box-shadow: 1px 1px 2px;
-        direction: pointer;
-        cursor: pointer;
-        float: left;
-        height: 34px;
-        margin-left: 3px;
-        margin-right: 3px;
-        margin-top: 8px;
-        position: relative;
-        text-align: center;
-        width: 34px;
-        border: solid #FF3818 2px;
-        border-radius: 6px;
-    }
-    
-    .button:hover{ /* hover only for desktop testing */
-        box-shadow: 0 0 0;
-    }
-    
-    #consoleDiv { /* output of console.log mirrored to this container */
-        background-color: #ffffff;
-        height: 98px;
-        margin-left: auto ;
-        margin-right: auto ;
-        width: 298px;
-        border: solid black 1px;
-        display: none;
-    }
-    
-    #bannerDiv { /* banner size, color, centering */
-        background-color: #ffffff;
-        height: 98px;
-        margin-left: auto ;
-        margin-right: auto ;
-        width: 298px;
-        border: solid black 1px;
-        position: relative;
-    }
+.button:hover{ /* hover only for desktop testing */
+    box-shadow: 0 0 0;
+}
 
-    #closeButtonDiv { /* text-based close button only shown if resize is successful */
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        display: none;
-        width: 20px;
-        height: 20px;
-        border: solid red 1px;
-        color: red;
-        background-color: #CCCCCC;
-        font-size: 20px;
-        font-family: Arial;
-        text-align: center;
-        padding: 14px;
-        box-shadow: none;
-        border-radius: 0px;
-        margin: 0px;
-        float: none;
-    }
+#consoleDiv { /* output of console.log mirrored to this container */
+    background-color: #ffffff;
+    height: 98px;
+    margin-left: auto ;
+    margin-right: auto ;
+    width: 298px;
+    border: solid black 1px;
+    display: none;
+}
 
-    #resizeDiv { /* enforce new-line for second round of testing */
-        clear:left;
-    }
-    #logoImage { /* logo image is inlined so no external files are required */
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAASCAMAAADmIZdjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAADTxpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMi4yLWMwNjMgNTMuMzUyNjI0LCAyMDA4LzA3LzMwLTE4OjEyOjE4ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgeG1sbnM6eG1wUmlnaHRzPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvcmlnaHRzLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOklwdGM0eG1wQ29yZT0iaHR0cDovL2lwdGMub3JnL3N0ZC9JcHRjNHhtcENvcmUvMS4wL3htbG5zLyIKICAgeG1wUmlnaHRzOldlYlN0YXRlbWVudD0iIgogICBwaG90b3Nob3A6QXV0aG9yc1Bvc2l0aW9uPSIiPgogICA8ZGM6cmlnaHRzPgogICAgPHJkZjpBbHQ+CiAgICAgPHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ii8+CiAgICA8L3JkZjpBbHQ+CiAgIDwvZGM6cmlnaHRzPgogICA8ZGM6Y3JlYXRvcj4KICAgIDxyZGY6U2VxPgogICAgIDxyZGY6bGkvPgogICAgPC9yZGY6U2VxPgogICA8L2RjOmNyZWF0b3I+CiAgIDxkYzp0aXRsZT4KICAgIDxyZGY6QWx0PgogICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+MDEgSUFCIExPR09fbGl2ZTwvcmRmOmxpPgogICAgPC9yZGY6QWx0PgogICA8L2RjOnRpdGxlPgogICA8eG1wUmlnaHRzOlVzYWdlVGVybXM+CiAgICA8cmRmOkFsdD4KICAgICA8cmRmOmxpIHhtbDpsYW5nPSJ4LWRlZmF1bHQiLz4KICAgIDwvcmRmOkFsdD4KICAgPC94bXBSaWdodHM6VXNhZ2VUZXJtcz4KICAgPElwdGM0eG1wQ29yZTpDcmVhdG9yQ29udGFjdEluZm8KICAgIElwdGM0eG1wQ29yZTpDaUFkckV4dGFkcj0iIgogICAgSXB0YzR4bXBDb3JlOkNpQWRyQ2l0eT0iIgogICAgSXB0YzR4bXBDb3JlOkNpQWRyUmVnaW9uPSIiCiAgICBJcHRjNHhtcENvcmU6Q2lBZHJQY29kZT0iIgogICAgSXB0YzR4bXBDb3JlOkNpQWRyQ3RyeT0iIgogICAgSXB0YzR4bXBDb3JlOkNpVGVsV29yaz0iIgogICAgSXB0YzR4bXBDb3JlOkNpRW1haWxXb3JrPSIiCiAgICBJcHRjNHhtcENvcmU6Q2lVcmxXb3JrPSIiLz4KICA8L3JkZjpEZXNjcmlwdGlvbj4KIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAKPD94cGFja2V0IGVuZD0idyI/Pm/FLJQAAAGAUExURSYjI769vcbFxX16ezw4OcPCw5qYmWxpai0pKkE+P0RAQTUxMmdkZTIuLyklJp6dnYiGhsTDxDMvMLm4uJaUlNDQ0FtYWd3d3Ts4OISCg8/Ozt7e3pGPj5iWl7e2tlpXWDczNDk1Nu88Lvf39/Hx8dHQ0f78+/SAd5mXmPDw8Pv7+7y6u09MTV5bW/Pz8//7+1hVVfvS08vKy/m6uvR4b6mnqO41J9fX16elps3MzP/8/O/u7vWJgejn5/b29v719fr6+pyamoB+fu3t7fBNQPFPU/WGfrSzs+4vM1JPUOnp6fzn5aCen3Vyc/n5+UtHSPTz89nY2bi3t1dUVPiln/FcUSsnKGlmZzo3OGpnaPzY2faXkPrEv/m3svego/R1evz7/PBJPNTT0z88PZORkqqoqPeel9XU1NDPz9bV1ePj44WDhPA/OYeFhe9DNsnIyD87PPz8/Nzb2+7t7vipo4mHh56cnLGwsPvKxrOysqalpaWkpK6sre4yJCMfIP///wihoTEAAACAdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AOAVLZwAAAUdJREFUeNqE0WVzwkAQBuCjhBK0JaS0aIvU3Y2WUnd3d6Humt2/zoYhNtMZ7sPd7nvP5O4mrPWydh/1wyQIwqkhYUlJ6vnSJxEAuDaamCRJSX3iJVNmNBtk3gqY9onpo1QBg1hjCHCVTLXRBM7FujgVLz9i0WJfKGQxkblamQ/3ayYMwF5x2OymraZNgFEPBTOMuuZexZQACImGLVBGqUctKzI6c/wtRy5eZxzyZNWMo6WSAv9s0KkYu6X+00VnlqumKhMFaKNmzJE3jdTc02rSTJD2FuTOnjc3VP/SGtHOGrIBROm7XpY3t4jP8vmPuLu3nsrdecQsv0J859U7W9M+mreX5+4kqStn4kH3f2+HbjykvxljaQB+EKd4JfdbVGJG7CRzwi44bimBGNixP619+DhO7OA4W7HTdub7o+sOTD6MH2QFGAAjxPMMnOXkNgAAAABJRU5ErkJggg==);
-        background-repeat:no-repeat;
-        background-position: 2px 0px;
-        height:38px;
-        width:38px;
-    }
-    #consoleLogo, #logo { /* buttons to toggle onscreen console logging */
-        border:none;
-        border-radius: 0;
-        box-shadow: none;
-        cursor:default;
-    }
-    #consoleLogDiv { /* area for onscreen console logging */
-        font-family:Arial, Helvetica, sans-serif;
-        font-size:9px;
-        width:250px;
-        height:98px;
-        float:left;
-        overflow:scroll;
-    }
-    body { /* in full page mode, remove browser margin */
-        margin: 0 0;
-    }
-    </style>
+#bannerDiv { /* banner size, color, centering */
+    background-color: #ffffff;
+    height: 98px;
+    margin-left: auto ;
+    margin-right: auto ;
+    width: 298px;
+    border: solid black 1px;
+    position: relative;
+}
+
+#closeButtonDiv { /* text-based close button only shown if resize is successful */
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: solid red 1px;
+    color: red;
+    background-color: #CCCCCC;
+    font-size: 20px;
+    font-family: Arial;
+    text-align: center;
+    padding: 14px;
+    box-shadow: none;
+    border-radius: 0px;
+    margin: 0px;
+    float: none;
+}
+
+#resizeDiv { /* enforce new-line for second round of testing */
+    clear:left;
+}
+#logoImage { /* logo image is inlined so no external files are required */
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAASCAMAAADmIZdjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAADTxpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMi4yLWMwNjMgNTMuMzUyNjI0LCAyMDA4LzA3LzMwLTE4OjEyOjE4ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgeG1sbnM6eG1wUmlnaHRzPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvcmlnaHRzLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOklwdGM0eG1wQ29yZT0iaHR0cDovL2lwdGMub3JnL3N0ZC9JcHRjNHhtcENvcmUvMS4wL3htbG5zLyIKICAgeG1wUmlnaHRzOldlYlN0YXRlbWVudD0iIgogICBwaG90b3Nob3A6QXV0aG9yc1Bvc2l0aW9uPSIiPgogICA8ZGM6cmlnaHRzPgogICAgPHJkZjpBbHQ+CiAgICAgPHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ii8+CiAgICA8L3JkZjpBbHQ+CiAgIDwvZGM6cmlnaHRzPgogICA8ZGM6Y3JlYXRvcj4KICAgIDxyZGY6U2VxPgogICAgIDxyZGY6bGkvPgogICAgPC9yZGY6U2VxPgogICA8L2RjOmNyZWF0b3I+CiAgIDxkYzp0aXRsZT4KICAgIDxyZGY6QWx0PgogICAgIDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+MDEgSUFCIExPR09fbGl2ZTwvcmRmOmxpPgogICAgPC9yZGY6QWx0PgogICA8L2RjOnRpdGxlPgogICA8eG1wUmlnaHRzOlVzYWdlVGVybXM+CiAgICA8cmRmOkFsdD4KICAgICA8cmRmOmxpIHhtbDpsYW5nPSJ4LWRlZmF1bHQiLz4KICAgIDwvcmRmOkFsdD4KICAgPC94bXBSaWdodHM6VXNhZ2VUZXJtcz4KICAgPElwdGM0eG1wQ29yZTpDcmVhdG9yQ29udGFjdEluZm8KICAgIElwdGM0eG1wQ29yZTpDaUFkckV4dGFkcj0iIgogICAgSXB0YzR4bXBDb3JlOkNpQWRyQ2l0eT0iIgogICAgSXB0YzR4bXBDb3JlOkNpQWRyUmVnaW9uPSIiCiAgICBJcHRjNHhtcENvcmU6Q2lBZHJQY29kZT0iIgogICAgSXB0YzR4bXBDb3JlOkNpQWRyQ3RyeT0iIgogICAgSXB0YzR4bXBDb3JlOkNpVGVsV29yaz0iIgogICAgSXB0YzR4bXBDb3JlOkNpRW1haWxXb3JrPSIiCiAgICBJcHRjNHhtcENvcmU6Q2lVcmxXb3JrPSIiLz4KICA8L3JkZjpEZXNjcmlwdGlvbj4KIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAKPD94cGFja2V0IGVuZD0idyI/Pm/FLJQAAAGAUExURSYjI769vcbFxX16ezw4OcPCw5qYmWxpai0pKkE+P0RAQTUxMmdkZTIuLyklJp6dnYiGhsTDxDMvMLm4uJaUlNDQ0FtYWd3d3Ts4OISCg8/Ozt7e3pGPj5iWl7e2tlpXWDczNDk1Nu88Lvf39/Hx8dHQ0f78+/SAd5mXmPDw8Pv7+7y6u09MTV5bW/Pz8//7+1hVVfvS08vKy/m6uvR4b6mnqO41J9fX16elps3MzP/8/O/u7vWJgejn5/b29v719fr6+pyamoB+fu3t7fBNQPFPU/WGfrSzs+4vM1JPUOnp6fzn5aCen3Vyc/n5+UtHSPTz89nY2bi3t1dUVPiln/FcUSsnKGlmZzo3OGpnaPzY2faXkPrEv/m3svego/R1evz7/PBJPNTT0z88PZORkqqoqPeel9XU1NDPz9bV1ePj44WDhPA/OYeFhe9DNsnIyD87PPz8/Nzb2+7t7vipo4mHh56cnLGwsPvKxrOysqalpaWkpK6sre4yJCMfIP///wihoTEAAACAdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AOAVLZwAAAUdJREFUeNqE0WVzwkAQBuCjhBK0JaS0aIvU3Y2WUnd3d6Humt2/zoYhNtMZ7sPd7nvP5O4mrPWydh/1wyQIwqkhYUlJ6vnSJxEAuDaamCRJSX3iJVNmNBtk3gqY9onpo1QBg1hjCHCVTLXRBM7FujgVLz9i0WJfKGQxkblamQ/3ayYMwF5x2OymraZNgFEPBTOMuuZexZQACImGLVBGqUctKzI6c/wtRy5eZxzyZNWMo6WSAv9s0KkYu6X+00VnlqumKhMFaKNmzJE3jdTc02rSTJD2FuTOnjc3VP/SGtHOGrIBROm7XpY3t4jP8vmPuLu3nsrdecQsv0J859U7W9M+mreX5+4kqStn4kH3f2+HbjykvxljaQB+EKd4JfdbVGJG7CRzwi44bimBGNixP619+DhO7OA4W7HTdub7o+sOTD6MH2QFGAAjxPMMnOXkNgAAAABJRU5ErkJggg==);
+    background-repeat:no-repeat;
+    background-position: 2px 0px;
+    height:38px;
+    width:38px;
+}
+#consoleLogo, #logo { /* buttons to toggle onscreen console logging */
+    border:none;
+    border-radius: 0;
+    box-shadow: none;
+    cursor:default;
+}
+#consoleLogDiv { /* area for onscreen console logging */
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:9px;
+    width:250px;
+    height:98px;
+    float:left;
+    overflow:scroll;
+}
+body { /* in full page mode, remove browser margin */
+    margin: 0 0;
+}
+</style>
 
 <script type="text/javascript">
 /* logging helpers */
@@ -855,44 +848,40 @@ A resized ad must position itself such that the entire close event region appear
 
 </script>
 
-    <!-- container div wraps all labels and buttons -->
-    <div id="bannerDiv">
-        <!-- instruction for first line -->
-        <div id="setResizeDiv" class="instruction">Test properties:</div>
-        
-        <!-- buttons with labels for first line -->
-        <div id="timingDiv" class="button"><div id="timingText" class="buttonLabel twoLineLabelA"><sup>1</sup>bad timing</div></div>
-        <div id="invalidDiv" class="button"><div id="invalidText" class="buttonLabel twoLineLabelA"><sup>2</sup>bad values</div></div>
-        <div id="tooSmallDiv" class="button"><div id="tooSmallText" class="buttonLabel twoLineLabelB">too<br/>small</div></div>
-        <div id="tooBigDiv" class="button"><div id="tooBigText" class="buttonLabel twoLineLabelB">too<br/>big</div></div>
-        <div id="logo" class="button"><div id="logoImage" class="buttonLabel"></div></div>
-        
-        <!-- instructions for second line -->
-        <div id="resizeDiv" class="instruction">Test offScreen:</div>
-        
-        <!-- buttons with labels for second line, use entities for arrows -->
-        <div id="toggleOffscreenDiv" class="button"><div id="toggleOffscreenText" class="buttonLabel">TRUE</div></div>
-        <div id="resizeLeftDiv" class="button"><div id="resizeLeftText" class="buttonLabel webdingFont">&larr;</div></div>
-        <div id="resizeRightDiv" class="button"><div id="resizeRightText" class="buttonLabel webdingFont">&rarr;</div></div>
-        <div id="resizeUpDiv" class="button"><div id="resizeUpText" class="buttonLabel webdingFont">&uarr;</div></div>
-        <div id="resizeDownDiv" class="button"><div id="resizeDownText" class="buttonLabel webdingFont">&darr;</div></div>
-
-        <!-- required close button -->
-        <div id="closeButtonDiv" class="button">X</div>
-    </div>
+<!-- container div wraps all labels and buttons -->
+<div id="bannerDiv">
+    <!-- instruction for first line -->
+    <div id="setResizeDiv" class="instruction">Test properties:</div>
     
-    <!-- console div captures all console.log output as well -->
-    <div id="consoleDiv">
-        <div id="consoleLogDiv"></div>
-        <div id="consoleLogo" class="button"><div id="logoImage" class="buttonLabel"></div></div>
-        <div id="clearLogDiv" class="button"><div id="clearLogText" class="buttonLabel">clear</div></div>
-    </div>
+    <!-- buttons with labels for first line -->
+    <div id="timingDiv" class="button"><div id="timingText" class="buttonLabel twoLineLabelA"><sup>1</sup>bad timing</div></div>
+    <div id="invalidDiv" class="button"><div id="invalidText" class="buttonLabel twoLineLabelA"><sup>2</sup>bad values</div></div>
+    <div id="tooSmallDiv" class="button"><div id="tooSmallText" class="buttonLabel twoLineLabelB">too<br/>small</div></div>
+    <div id="tooBigDiv" class="button"><div id="tooBigText" class="buttonLabel twoLineLabelB">too<br/>big</div></div>
+    <div id="logo" class="button"><div id="logoImage" class="buttonLabel"></div></div>
+    
+    <!-- instructions for second line -->
+    <div id="resizeDiv" class="instruction">Test offScreen:</div>
+    
+    <!-- buttons with labels for second line, use entities for arrows -->
+    <div id="toggleOffscreenDiv" class="button"><div id="toggleOffscreenText" class="buttonLabel">TRUE</div></div>
+    <div id="resizeLeftDiv" class="button"><div id="resizeLeftText" class="buttonLabel webdingFont">&larr;</div></div>
+    <div id="resizeRightDiv" class="button"><div id="resizeRightText" class="buttonLabel webdingFont">&rarr;</div></div>
+    <div id="resizeUpDiv" class="button"><div id="resizeUpText" class="buttonLabel webdingFont">&uarr;</div></div>
+    <div id="resizeDownDiv" class="button"><div id="resizeDownText" class="buttonLabel webdingFont">&darr;</div></div>
+
+    <!-- required close button -->
+    <div id="closeButtonDiv" class="button">X</div>
+</div>
+
+<!-- console div captures all console.log output as well -->
+<div id="consoleDiv">
+    <div id="consoleLogDiv"></div>
+    <div id="consoleLogo" class="button"><div id="logoImage" class="buttonLabel"></div></div>
+    <div id="clearLogDiv" class="button"><div id="clearLogText" class="buttonLabel">clear</div></div>
+</div>
 
 <script type="text/javascript">
 /* initialize manually to simulate ad environments where document ready events may have already fired */
         $tester.init(false, 0, 'ResizeErrTester');
 </script>
-
-<!-- ------------------------------------------------------------------------ -->    
-<!-- SNIPPET ENDS HERE FOR CUT-AND-PASTE TO USE THIS PAGE AS AN HTML FRAGMENT -->
-<!-- ------------------------------------------------------------------------ -->    

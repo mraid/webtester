@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, user-scalable=no">
+        <script src="mraid.js"></script>
+        <style>
+         *{margin:0; padding:0; font-family:arial;}
+            html{background:#000; color:#fff; text-align:center; padding:10px;}
+            body{background:#fff; color:#000; border:1px solid #f00;}
+            div#wrap{display:none;}
+            div#close{line-height:50px; height:50px; font-size:24px; color:#ccc; background:#000; font-weight:bold; border:1px solid #f00; position:absolute; top:20px; left:20px; right:20px;}
+            div#buttons{line-height:50px; height:50px; font-size:24px; font-weight:bold; position:absolute; top:100px; left:20px; right:20px; text-align:center;}
+            div#buttons span{border:1px solid #f00; line-height:50px; height:50px; display:inline-block;  margin:20px 3px; padding:0 6px; color:#ccc; background:#000;}
+            div#water{line-height:18px; font-size:12px; color:#333; position:absolute; top:85px; left:0; right:0;}
+            div#info{position:absolute; bottom:20px; left:20px; right:20px; padding:3px; border:1px solid #f00; line-height:18px; font-size:14px; color:#f00; font-weight:bold;  background:#fff;}
+			div#load{display:block; line-height:30px; font-size:20px; color:#ccc; position:absolute; top:49%; left:0; right:0;}
+
+			@media (min-height:400px)
+			{
+			  div#buttons span{display:block;  margin:20px auto;}
+			}
+		</style>
+
+		<script type="text/javascript">
+		function initad()
+		{
+			console.log('initad() 2part triggered.');
+			if(mraid.getState()!="expanded")
+			{
+				document.getElementById("load").innerHTML="mraid.getState() is not expanded!";
+			}
+			else if(mraid.getPlacementType()!="inline")
+			{
+				document.getElementById("load").innerHTML="mraid.getPlacementType() is not inline!";
+			}
+			else
+			{
+				document.getElementById("load").style.display="none";
+				document.getElementById("wrap").style.display="block";
+			}
+		}
+
+		function readycheck()
+		{
+			console.log('window.onload() triggered.');
+			if(mraid.getState() == 'loading') 
+			{
+				mraid.addEventListener("ready", initad);  
+			}
+			else
+			{
+				initad();
+			}
+			if(!mraid.isViewable())
+			{
+			  console.log('Adview is not visible'); //Don't die from this error, just a notice
+			}
+			mraid.addEventListener('error', mraiderror);
+		}
+
+		function mraiderror(message,action)
+		{
+			console.log("MRAID Error: '"+message+"' From: "+action);
+		}
+		if(document.readyState=="complete")
+		{
+			readycheck();
+		}
+		else
+		{
+			window.addEventListener('load', readycheck, false); //DOM and MRAID check
+		}
+		</script>
+
+    </head>
+    <body>
+    <div id="wrap">
+            <div id="close" onclick="mraid.close()">Click here to close.</div>
+            <div id="buttons"><span id="openiab" onclick="mraid.open('http://www.iab.net')">Open IAB.net</span><span id="openvideo" onclick="mraid.playVideo('http://once.unicornmedia.com/now/od/auto/d8371d05-0b04-42fc-892f-b0e9ad6db2b5/6fd31a0f-775a-49ca-849b-228d70b5f9ac/a96a4e06-829b-45b9-a251-ecad4b2bef5e/606-4168-mraidtestvideo.mp4')">PlayVideo</span><span id="expandtest" onclick="mraid.expand()">Expand Again</span></div>
+            <div id="water">IAB MRAID2 Two Part Compliance Ad.</div>
+            <div id="info">SDK close button must be hidden. MRAID support must be given. Top area onclick must close ad. Expanding again must do nothing.</div>
+     </div>
+     <div id="load">Loading...</div>
+    </body>
+</html>
