@@ -27,7 +27,7 @@ function initad()
 	var head = document.getElementsByTagName("head")[0];
 	var style = document.createElement('style');
 	style.setAttribute('type', 'text/css')
-	style.appendChild(document.createTextNode(' body{display:table; height:100%; width:100%;} div#arontwopartwrap{text-align:center; width:100%; background:#000; color:#f00; font-size:12px; font-family:arial;display:table-cell; vertical-align:middle;} a{ line-height:40px; font-size:30px; padding:3px; background:#fff; color:#f00; border:1px solid #f00; display:block; height:40px; width:260px; margin:auto; text-align:center; text-decoration:none;}'));
+	style.appendChild(document.createTextNode(' body{display:table; height:100%; width:100%;} div#arontwopartwrap{text-align:center; width:100%; background:#000; color:#f00; font-size:12px; font-family:arial;display:block; vertical-align:middle;} a{ line-height:40px; font-size:30px; padding:3px; background:#fff; color:#f00; border:1px solid #f00; display:block; height:40px; width:260px; margin:auto; text-align:center; text-decoration:none;}'));
 	head.appendChild(style);
 	window._aron_init = 1;
 
@@ -78,7 +78,7 @@ function twopart()
 		"allowOrientationChange": true
 	});
 	mraid.setExpandProperties({"width":200,"height":200,"isModal":false});//Setting this should have no effect. useCustomClose should still be true.
-	mraid.expand("http://mraid.net/compliance/units/twopart-expand-part2.html"); //Change URL to test other pages
+	mraid.expand("http://mraid.iab.net/compliance/units/twopart-expand-part2.html"); //Change URL to test other pages
 }
 
 if(document.readyState=="complete")
