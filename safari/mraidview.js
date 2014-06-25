@@ -242,14 +242,9 @@ INFO mraid.js identification script found
         broadcastEvent(EVENTS.INFO, 'MRAID version ' + v);
     };
 
-    mraidview.setPlacement = function(elements) {
-        var p = '';
-        for (var i=0; i<elements.length; i++) {
-            if (elements[i].checked) p = elements[i].value;
-        }
-        mraidview.placement = p;
-        placement = p;
-        broadcastEvent(EVENTS.INFO, 'placement type ' + p);
+    mraidview.setPlacement = function(value) {
+        placement = value;
+        broadcastEvent(EVENTS.INFO, 'placement type ' + value);
     };
 
     mraidview.setOffScreen  = function(value) {
