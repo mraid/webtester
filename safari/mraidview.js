@@ -167,7 +167,7 @@ INFO mraid.js identification script found
         c = { width:0, height:0, y:0, x:0 },
         maxSize = { width:0, height:0, x:0, y:0 },
         expandProperties = { width:0, height:0, useCustomClose:false, isModal:false},
-        orienationProperties = { allowOrientationChange:true, forceOrientation:'none' },
+        orientationProperties = { allowOrientationChange:true, forceOrientation:'none' },
         resizeProperties = { initialized: false, validated: false, width:0, height:0, customClosePosition:'top-right', offsetX:undefined, offsetY:undefined, allowOffscreen:true},
         supports = [],
         version = VERSIONS.UNKNOWN,
@@ -985,7 +985,7 @@ INFO mraid.js identification script found
         bridge.addEventListener('setOrientationProperties', function(properties) {
             broadcastEvent(EVENTS.INFO, 'setting orientation properties to ' + stringify(properties));
             setOrientationProperties(properties);
-            adBridge.pushChange({'orientationProperties':orienationProperties});
+            adBridge.pushChange({'orientationProperties':orientationProperties});
         }, this);
 
         bridge.addEventListener('useCustomClose', function(useCustomCloseIndicator) {
@@ -1174,7 +1174,8 @@ INFO mraid.js identification script found
             var orientationChangeEvent = adFrame.contentWindow.document.createEvent('HTMLEvents');
             orientationChangeEvent.initEvent('orientationchange', false, false);
             adFrame.contentWindow.dispatchEvent(orientationChangeEvent);*/
-            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
+            //adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
+            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': {'x': currentPosition.y, 'y': (maxSize.width - expandProperties.width - currentPosition.x), 'width': currentPosition.height, 'height': currentPosition.width}});
         }
     };
 
