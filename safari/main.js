@@ -95,7 +95,7 @@ Note: This must be served from a webserver when using Chrome, otherwise you'll
     /*mraidview.setMaxAdSize((form.adMaxWidth.value) ? parseInt(form.adMaxWidth.value, 10) : parseInt(form.screenWidth.value, 10), (form.adMaxHeight.value) ? parseInt(form.adMaxHeight.value, 10) : parseInt(form.screenHeight.value, 10));*/
   	console.warn('prepareMraidView');
    	mraidview.setMaxAdPosition(parseInt(form.adMaxLeft.value, 10), parseInt(form.adMaxTop.value, 10), parseInt(form.adMaxWidth.value, 10), parseInt(form.adMaxHeight.value, 10));
-    mraidview.setVersion(form.version);
+    mraidview.setVersion(form.version.value);
     mraidview.setPlacement(form.placement.value);
     mraidview.setOffScreen(form.offscreen.checked);
 	mraidview.resetSupports();

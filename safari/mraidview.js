@@ -233,17 +233,13 @@ INFO mraid.js identification script found
         }
     };
 
-    mraidview.setVersion = function(elements) {
-        var v = '';
-        for (var i=0; i<elements.length; i++) {
-            if (elements[i].checked) v = elements[i].value;
-        }
-        mraidview.version = v;
-        broadcastEvent(EVENTS.INFO, 'MRAID version ' + v);
+    mraidview.setVersion = function(value) {
+        mraidview.version = value;
+        broadcastEvent(EVENTS.INFO, 'MRAID version ' + value);
     };
 
     mraidview.setPlacement = function(value) {
-        placement = value;
+        placement = mraidview.placement = value;
         broadcastEvent(EVENTS.INFO, 'placement type ' + value);
     };
 
