@@ -809,6 +809,11 @@ INFO mraid.js identification script found
                 inactiveAdBridge = null;
                 adController = null;
             }
+            /* If forceOrientation is enabled, we need to disable it and update our size and position properties. */
+            if (orientationProperties.forceOrientation === 'portrait' || orientationProperties.forceOrientation === 'landscape') {
+                orientationProperties = {'allowOrientationChange':true, 'forceOrientation':'none'};
+                adBridge.pushChange({'orientationProperties': orientationProperties});
+            }
             adBridge.pushChange({'state':state});
             endExpanded();
         } else if (state === STATES.RESIZED) {
@@ -1180,7 +1185,8 @@ INFO mraid.js identification script found
             orientationChangeEvent.initEvent('orientationchange', false, false);
             adFrame.contentWindow.dispatchEvent(orientationChangeEvent);*/
             //adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
-            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': {'x': currentPosition.y, 'y': (maxSize.width - expandProperties.width - currentPosition.x), 'width': currentPosition.height, 'height': currentPosition.width}});
+            currentPosition = {'x': currentPosition.y, 'y': (maxSize.width - expandProperties.width - currentPosition.x), 'width': currentPosition.height, 'height': currentPosition.width};
+            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
         }
     };
 
