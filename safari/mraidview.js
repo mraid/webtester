@@ -156,7 +156,8 @@ INFO mraid.js identification script found
         previousPosition = { x:0, y:0, width:0, height:0 },
         previousState = null,
         defaultWindowSize = null,
-        adContainerOrientation = -1;
+        adContainerOrientation = -1,
+        counter = 10;
 
     // MRAID state variables - shared with frame
     var
@@ -329,6 +330,10 @@ INFO mraid.js identification script found
 
     mraidview.setDefaultWindowSize = function () {
         defaultWindowSize = {};
+        if ((adWindow.outerHeight === 0 || adWindow.outerWidth === 0) && counter > 0) {
+            counter--;
+            setTimeout(mraidview.setDefaultWindowSize, 50);
+        }
         if (orientation % 180 === 0) {
             defaultWindowSize.outerWidth = adWindow.outerWidth;
             defaultWindowSize.innerWidth = adWindow.innerWidth;
@@ -346,7 +351,7 @@ INFO mraid.js identification script found
 
     mraidview.render = function() {
         broadcastEvent(EVENTS.INFO, 'rendering');
-
+        counter = 10;
         if (!adFrame || !adWindow || !adWindow.document || !adFrame.contentWindow) {
             broadcastEvent(EVENTS.INFO, 'creating adWindow');
             adWindow = window.open((offscreen) ? 'safari/device-pages.html': 'safari/device.html', 'adWindow', 'left=1000,width='+screenSize.width+',height='+screenSize.height+',menubar=no,location=no,toolbar=no,status=no,personalbar=no,resizable=no,scrollbars=no,chrome=no,all=no');
