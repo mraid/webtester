@@ -56,12 +56,12 @@ function readycheck()
 
 function statechange()
 {
-	console.log("MRAID State Change. State=".mraid.getState());
+	console.log("MRAID State Change. State=" + mraid.getState());
 }
 
 function mraiderror(message,action)
 {
-	console.log("MRAID Error: '"+message+"' From: "+action);
+	console.log("MRAID Error: '"+message+"' From: " + action);
 }
 
 function twopart()
