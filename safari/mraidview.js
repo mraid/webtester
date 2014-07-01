@@ -1179,11 +1179,15 @@ INFO mraid.js identification script found
             * window.orientation property.
             * 2. There is no MRAID orientation api, so we don't need to trigger an orientationchange event. This code is here 
             * as legacy from when MRAID orientation was under consideration.
+            * ---
+            * UPDATE: 7/1/2014
+            * Because we state that it is the creative's responsibility to ensure that the close button is not off-screen, we need to provide
+            * an orientationchange event so that any listeners they might be using to meet this responsibility after an orientation change can respond as intended.
             */
-            /*adFrame.contentWindow.orientation = degree;
+            adFrame.contentWindow.orientation = degree;
             var orientationChangeEvent = adFrame.contentWindow.document.createEvent('HTMLEvents');
             orientationChangeEvent.initEvent('orientationchange', false, false);
-            adFrame.contentWindow.dispatchEvent(orientationChangeEvent);*/
+            adFrame.contentWindow.dispatchEvent(orientationChangeEvent);
             //adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
             currentPosition = {'x': currentPosition.y, 'y': (maxSize.width - expandProperties.width - currentPosition.x), 'width': currentPosition.height, 'height': currentPosition.width};
             adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
