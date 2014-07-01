@@ -1,6 +1,9 @@
-<script src="mraid.js" type="text/javascript"></script> 
+<!-- This IAB MRAID test creative was built by Adam Schuetz, currently Senior Director of Engineering at AdMarvel on 04/14/2014 -->
+
+<script src="mraid.js"></script> 
+
 <div id="container" style="width:100%;height:100%;background-color:#000000;">	
-	<video id="adVideo" webkit-playsinline src="http://once.unicornmedia.com/now/od/auto/d8371d05-0b04-42fc-892f-b0e9ad6db2b5/6fd31a0f-775a-49ca-849b-228d70b5f9ac/87c56e71-2005-473c-a8da-2d45053413a9/578-1588-iab-video-small.mp4"></video>
+	<video id="adVideo" webkit-playsinline src="http://once.unicornmedia.com/now/od/auto/d8371d05-0b04-42fc-892f-b0e9ad6db2b5/6fd31a0f-775a-49ca-849b-228d70b5f9ac/87c56e71-2005-473c-a8da-2d45053413a9/578-1588-iab-video-small.mp4"></video>			
 </div>
 
 <style type="text/css">
@@ -12,7 +15,9 @@ body
 
 <script language="javascript" type="text/javascript">
 document.getElementById("container").addEventListener('touchmove', function(event) { event.preventDefault(); }, false);
+</script>
 
+<script>
 function mraidIsReady()
 {
 	mraid.removeEventListener("ready", mraidIsReady);
@@ -110,13 +115,14 @@ function viewableChangeAfterDisplay(visible)
 
 function showMyAd()
 {
-	// Adjust dimensions for device using current orientation to find landscape values
-	var screenSize = mraid.getScreenSize();
-	logMRAIDMessage("Reported screen size: width = " + screenSize.width + ", height = " + screenSize.height);
-	var screenLandscapeWidth = screenSize.width;
-	var screenLandscapeHeight = screenSize.height;
-	document.getElementById("container").style.width = screenLandscapeWidth + "px";
-	document.getElementById("container").style.height = screenLandscapeHeight + "px";
+	// Adjust dimensions to current position width/height. Since this is being called on display this should represent the size of the ad after locking to landscape orientation.
+	var currentPosition = mraid.getCurrentPosition();
+	var landscapeWidth = currentPosition.width;
+	var landscapeHeight = currentPosition.height;
+	logMRAIDMessage("Reported current ad size: width = " + landscapeWidth + ", height = " + landscapeHeight);
+	
+	document.getElementById("container").style.width = landscapeWidth + "px";
+	document.getElementById("container").style.height = landscapeHeight + "px";
 	
 	// First video to fit full width and and then scale height
 	var videoWidth = 320;
@@ -124,29 +130,29 @@ function showMyAd()
 	var videoRatio = videoWidth/videoHeight;
 	var newWidth = videoWidth;
 	var newHeight = videoHeight;
-	if(videoWidth > screenLandscapeWidth)
+	if(videoWidth > landscapeWidth)
 	{
-		newWidth = screenLandscapeWidth;
+		newWidth = landscapeWidth;
 		newHeight = newWidth/videoRatio;
 	}
 	else
 	{
-		newWidth = Math.max(screenLandscapeWidth, videoWidth);
+		newWidth = Math.max(landscapeWidth, videoWidth);
 		newHeight = newWidth/videoRatio;
 	}
 	
 	// If scaled height too big then scale back until it fits
-	if (newHeight > screenLandscapeHeight)
+	if (newHeight > landscapeHeight)
 	{
 		videoRatio = videoHeight/videoWidth;
 		
-		newHeight = screenLandscapeHeight;
+		newHeight = landscapeHeight;
 		newWidth = newHeight/videoRatio;
 	}
 
 	// Calculate margins to center
-	var topBottomMargins = (screenLandscapeHeight - newHeight)/2.0;
-	var leftRightMargins = (screenLandscapeWidth - newWidth)/2.0;
+	var topBottomMargins = (landscapeHeight - newHeight)/2.0;
+	var leftRightMargins = (landscapeWidth - newWidth)/2.0;
 	
 	// Update video dimensions
 	var video = document.getElementById("adVideo");
