@@ -884,6 +884,7 @@ INFO mraid.js identification script found
                 adFrameExpanded.style.border = 'none';
                 adFrameExpanded.style['z-index'] = getHighestZindex()+1;
                 ac = adExpandedContainer;
+                acs = ac.style;
 
                 insertAdURI(adFrameExpanded, uri);
                     
