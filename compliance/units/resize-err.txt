@@ -351,9 +351,9 @@ $tester = {
     init : function (isAlertOn, logLevel, logPreface) {
 
         //turn on logging
-        $log.logLevel = logLevel;
-        $log.useAlert = isAlertOn;
-        $log.preface = logPreface;
+        $log.logLevel = (logLevel) ? logLevel : $log.logLevel;
+        $log.useAlert = (isAlertOn) ? isAlertOn : $log.useAlert;
+        $log.preface  = (logPreface) ? logPreface : $log.preface;
         $log.it('init', DEBUG);
 
         //confirm that mraid is available
