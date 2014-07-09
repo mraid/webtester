@@ -424,7 +424,7 @@ $tester = {
         }
 
         //set mraid container back to default state
-        if ($mraid.getState === 'resized') {
+        if ($mraid.getState() === 'resized') {
             $log.it('reset the state back from resize', INFO);
             $mraid.close();
         }
