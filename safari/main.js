@@ -77,6 +77,7 @@ function nextStep() {
 function renderHtmlAd() {
 	var form = document.forms.setup;
     prepareMraidView(form);
+    mraidview.setAdHeadScript(form.adHeadScript.value);
 	mraidview.setUseHtml(true, form.adFragment.value);
 	mraidview.render();
 	$('[href=#tabs-3]').click(); // switch to third tab

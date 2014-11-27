@@ -140,7 +140,7 @@ div[class~=consoleFrame] {
 	line-height: 1.6;
 }
 
-#adURI, #adFragment {
+#adURI, #adFragment, #adHeadScript {
     width:70%;
 }
 

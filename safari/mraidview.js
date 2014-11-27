@@ -134,6 +134,7 @@ INFO mraid.js identification script found
 
     var
         adURI = "",
+        adHeadScript = "",
         adURIFragment = true,
         adHtml = '',
         useHtml = false;
@@ -213,6 +214,12 @@ INFO mraid.js identification script found
         adURI = uri;
         adURIFragment = (fragment)?true:false;
     };
+    
+    mraidview.setAdHeadScript = function(script) {
+    	adHeadScript = script;
+    	// Save in local storage
+    	localStorage.setItem('adHeadScript', adHeadScript);
+    }
 
     mraidview.setUseHtml = function(useThisHtml, html) {
         useHtml = useThisHtml;
