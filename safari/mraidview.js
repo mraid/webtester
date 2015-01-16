@@ -134,6 +134,7 @@ INFO mraid.js identification script found
 
     var
         adURI = "",
+        adHeadScript = "",
         adURIFragment = true,
         adHtml = '',
         useHtml = false;
@@ -213,6 +214,10 @@ INFO mraid.js identification script found
         adURI = uri;
         adURIFragment = (fragment)?true:false;
     };
+    
+    mraidview.setAdHeadScript = function(script) {
+    	adHeadScript = script;
+    }
 
     mraidview.setUseHtml = function(useThisHtml, html) {
         useHtml = useThisHtml;
@@ -1054,6 +1059,15 @@ INFO mraid.js identification script found
         var win = this.contentWindow,
             doc = win.document,
             adScreen = {};
+
+        // Load ad from external script
+        if (adHeadScript) {
+            broadcastEvent(EVENTS.INFO, 'attaching head script');
+            var adScript = doc.createElement('script');
+            adScript.setAttribute('type', 'text/javascript');
+            adScript.innerHTML = adHeadScript;
+            doc.getElementsByTagName('head')[0].appendChild(adScript);
+        }
 
         for (var prop in win.screen) {
             if (prop !== 'width' && prop !== 'height') {
