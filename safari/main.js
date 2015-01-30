@@ -145,13 +145,13 @@ function getQueryStringValue (searchKey) {
         vKeyValue,
         sKey;
 
-        for (i = 0; i < vQsParts.length; i = i + 1) {
-            vKeyValue = vQsParts[i].split('=');
-            sKey = vKeyValue[0];
-            if (searchKey === sKey) {
-                return (vKeyValue[1]);
-            }
+    for (i = 0; i < vQsParts.length; i = i + 1) {
+        vKeyValue = vQsParts[i].split('=');
+        sKey = vKeyValue[0];
+        if (searchKey === sKey) {
+            return (vKeyValue[1]);
         }
+    }
 
-        return null;
+    return null;
 }
