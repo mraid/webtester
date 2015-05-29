@@ -1198,7 +1198,6 @@ INFO mraid.js identification script found
 
     var updateAdSize = function(val){
         setMaxAdArea(val);
-
         setExpandProperties(val);
     };
 })();
