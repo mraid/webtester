@@ -1191,12 +1191,14 @@ INFO mraid.js identification script found
             adFrame.contentWindow.dispatchEvent(orientationChangeEvent);
             //adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
             currentPosition = {'x': currentPosition.y, 'y': (maxSize.width - expandProperties.width - currentPosition.x), 'width': currentPosition.height, 'height': currentPosition.width};
-            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
+            screenSize = {width: screenSize.height, height: screenSize.width};
+            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition, 'screenSize': screenSize});
         }
     };
 
     var updateAdSize = function(val){
         setMaxAdArea(val);
+
         setExpandProperties(val);
     };
 })();
