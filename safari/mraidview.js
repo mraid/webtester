@@ -582,7 +582,7 @@ INFO mraid.js identification script found
                 }
             };
         })();
-        
+
         try {
             if (window.jQuery !== undefined) {
                 jQuery.get(qs, success);
@@ -799,8 +799,6 @@ INFO mraid.js identification script found
         showMraidCloseButton(false);
         if (state === STATES.DEFAULT) {
             adBridge.broadcastEvent('hide');
-            state = STATES.HIDDEN;
-            adBridge.pushChange({'state':state});
         } else if (state === STATES.EXPANDED) {
             state = STATES.DEFAULT;
             if (inactiveAdBridge) {
@@ -887,11 +885,11 @@ INFO mraid.js identification script found
                 acs = ac.style;
 
                 insertAdURI(adFrameExpanded, uri);
-                    
+
                 adExpandedContainer.appendChild(adFrameExpanded);
                 adExpandedContainer.appendChild(closeEventRegion);
                 adContainer.parentNode.appendChild(adExpandedContainer);
-                
+
                 adExpandedContainer.style['z-index'] = getHighestZindex()+1;
                 topAdContainer = adFrameExpanded;
             }
@@ -1174,11 +1172,11 @@ INFO mraid.js identification script found
     var setAdOrientation = function (degree) {
         if (adContainerOrientation !== degree) {
             adContainerOrientation = degree;
-            /* 
+            /*
             * The code below has been commented for two reasons:
             * 1. The device should always report the correct orientation, so we don't want to override the
             * window.orientation property.
-            * 2. There is no MRAID orientation api, so we don't need to trigger an orientationchange event. This code is here 
+            * 2. There is no MRAID orientation api, so we don't need to trigger an orientationchange event. This code is here
             * as legacy from when MRAID orientation was under consideration.
             * ---
             * UPDATE: 7/1/2014
