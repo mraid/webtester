@@ -1189,8 +1189,6 @@ INFO mraid.js identification script found
             var orientationChangeEvent = adFrame.contentWindow.document.createEvent('HTMLEvents');
             orientationChangeEvent.initEvent('orientationchange', false, false);
             adFrame.contentWindow.dispatchEvent(orientationChangeEvent);
-            //adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
-            currentPosition = {'x': currentPosition.y, 'y': (maxSize.width - expandProperties.width - currentPosition.x), 'width': currentPosition.height, 'height': currentPosition.width};
             adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
         }
     };
