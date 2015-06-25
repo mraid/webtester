@@ -14,7 +14,7 @@ html {
 body {
 	background-color: #fff;
 	color: #666;
-	font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;	
+	font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0px 25px;
 }
 
@@ -192,7 +192,7 @@ div[class~=consoleFrame] {
 }
 
 #title {
-/*	
+/*
 	width:200px;
 	height:31px;
 	float:right;
@@ -202,7 +202,7 @@ div[class~=consoleFrame] {
 }
 
 #iab-logo {
-	background-image:url(http://www.iab.net/media/image/new-iab-logo.gif);
+	background-image:url(//www.iab.net/media/image/new-iab-logo.gif);
 	background-repeat:no-repeat;
 	width:60px;
 	height:31px;
@@ -211,13 +211,13 @@ div[class~=consoleFrame] {
     background-size: contain;
 }
 #crisp-logo {
-	background-image:url(http://crispmedia.com/themes/crispwireless/images/logo.png);
+	background-image:url(//crispmedia.com/themes/crispwireless/images/logo.png);
 	background-repeat:no-repeat;
 	width:90px;
 	height:34px;
     margin-left: auto ;
     margin-right: auto ;
-    background-size: contain;	
+    background-size: contain;
 }
 #groups-logo {
 	background-image:url(../img/github-logo.png);
@@ -225,7 +225,7 @@ div[class~=consoleFrame] {
 	width:108px;
 	height:25px;
     margin-left: auto ;
-    margin-right: auto ;	
+    margin-right: auto ;
     margin-top: 5px;
     background-size: contain;
 }
