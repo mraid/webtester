@@ -717,12 +717,16 @@ INFO mraid.js identification script found
             resizeProperties.customClosePosition = 'top-left';
         }
 
+        var maxSizeWidth  = orientation % 180 === 0 ? maxSize.width  : maxSize.height;
+        var maxSizeHeight = orientation % 180 === 0 ? maxSize.height : maxSize.width;
+
+
         if (!properties.allowOffscreen) {
-            if (properties.width > maxSize.width || properties.height > maxSize.height) {
+            if (properties.width > maxSizeWidth || properties.height > maxSizeHeight) {
                 adFrame.contentWindow.broadcastEvent(EVENTS.ERROR, 'invalid properties for setResizeProperties: width or height is too big' , 'setResizeProperties');
             } else {
-                var posX = Math.max(0, Math.min(maxSize.width - properties.width, defaultPosition.x + properties.offsetX)),
-                    posY = Math.max(0, Math.min(maxSize.height - properties.height, defaultPosition.y + properties.offsetY));
+                var posX = Math.max(0, Math.min(maxSizeWidth - properties.width, defaultPosition.x + properties.offsetX)),
+                    posY = Math.max(0, Math.min(maxSizeHeight - properties.height, defaultPosition.y + properties.offsetY));
 
                 properties.offsetX = posX - defaultPosition.x;
                 properties.offsetY = posY - defaultPosition.y;
@@ -756,9 +760,9 @@ INFO mraid.js identification script found
             closeTotalPositionY = defaultPosition.y + properties.offsetY + closeOffsetY;
 
             if (closeTotalPositionX < 0 ||
-                closeTotalPositionX > maxSize.width - 50 ||
+                closeTotalPositionX > maxSizeWidth - 50 ||
                 closeTotalPositionY < 0 ||
-                closeTotalPositionY > maxSize.height - 50) {
+                closeTotalPositionY > maxSizeHeight - 50) {
 
                 //broadcastEvent(EVENTS.ERROR, 'invalid properties for setResizeProperties' , 'setResizeProperties');
                 adFrame.contentWindow.broadcastEvent(EVENTS.ERROR, 'invalid properties for setResizeProperties', 'setResizeProperties');
@@ -1189,9 +1193,8 @@ INFO mraid.js identification script found
             var orientationChangeEvent = adFrame.contentWindow.document.createEvent('HTMLEvents');
             orientationChangeEvent.initEvent('orientationchange', false, false);
             adFrame.contentWindow.dispatchEvent(orientationChangeEvent);
-            //adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
-            currentPosition = {'x': currentPosition.y, 'y': (maxSize.width - expandProperties.width - currentPosition.x), 'width': currentPosition.height, 'height': currentPosition.width};
-            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition});
+            screenSize = {width: screenSize.height, height: screenSize.width};
+            adBridge.pushChange({'size': size, 'orientation': adContainerOrientation, 'currentPosition': currentPosition, 'screenSize': screenSize});
         }
     };
 
