@@ -65,7 +65,8 @@ var features = {
     tel: { name: 'tel' },
     calendar: { name: 'calendar' },
     storePicture: { name: 'storePicture' },
-    inlineVideo: {name: 'inlineVideo' }
+    inlineVideo: {name: 'inlineVideo' },
+    vpaid: {name: 'vpaid' }
 };
 
 function contains(array, item) {
