@@ -85,7 +85,7 @@
                     <table id="geometryTable"> 
                         <tr><td class="name">Default ad size (w x h):</td>
                             <td class="value">
-                                <input id="adWidth" name="adWidth" class="dimension" value="320" onchange="devicesizeWidget.updatePreview()"/>x<input id="adHeight" name="adHeight" class="dimension" value="50" onchange="devicesizeWidget.updatePreview()"/>
+                                <input id="adWidth" name="adWidth" class="dimension" value="320" onchange="devicesizeWidget.updatePreview()"/>x<input id="adHeight" name="adHeight" class="dimension" value="480" onchange="devicesizeWidget.updatePreview()"/>
                             </td>
                         </tr>
                         <tr><td class="name">Default ad position (top, left):</td>
@@ -121,8 +121,8 @@
                     </p>
                     <p class="no-margin">Placement: 
                         <select name="placement">
-                            <option value="inline" selected="selected">Inline</option>
-                            <option value="interstitial">Interstitial</option>
+                            <option value="interstitial" selected="selected">Interstitial</option>
+                            <option value="imline">Inline</option>
                         </select>
                         </br>
                         <input id="offscreen" name="offscreen" type="checkbox"/>Off-screen
@@ -173,7 +173,8 @@
             <div>
                 <h2 class="no-margin">tag source</h2>
                 <div>
-                    <textarea name="adFragment" id="adFragment" rows="10" placeholder="Your HTML fragment here"></textarea><br/>
+                    <!--textarea name="adFragment" id="adFragment" rows="10" ><script src='http://rtr.innovid.com/r1.5637e6df321548.45146407;cb=[timestamp]'></script></textarea><br/-->
+                    <textarea name="adFragment" id="adFragment" rows="10" placeHolder="Your HTML fragment here" ></textarea><br/>
                     <input type="button" value="Render" onclick="renderHtmlAd()" />
                 </div>
             </div>

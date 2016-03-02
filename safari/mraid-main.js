@@ -69,7 +69,8 @@
         TEL         :'tel',
         CALENDAR    :'calendar',
         STOREPICTURE:'storePicture',
-        INLINEVIDEO	:'inlineVideo'
+        INLINEVIDEO	:'inlineVideo',
+        VPAID    	:'vpaid'
     };
 
     // PRIVATE PROPERTIES (sdk controlled) //////////////////////////////////////////////////////
@@ -424,6 +425,9 @@
         isViewable:function(val) {
             broadcastEvent(EVENTS.INFO, 'setting isViewable to ' + stringify(val));
             isViewable = val;
+            if (mraid.vpaid && mraid.vpaid.ready && !mraid.vpaid.adStarted && isViewable){
+                mraid.vpaid.startAd();
+            }
             broadcastEvent(EVENTS.VIEWABLECHANGE, isViewable);
         },
         orientationProperties:function(val) {
@@ -796,6 +800,7 @@
 
     mraid.supports = function(feature) {
     /* introduced in MRAIDv2 */
+        broadcastEvent(EVENTS.INFO, "Ad calling mraid.supports(" + feature + ")");
         var bSupports = false;
         if (parseFloat(mraidVersion, 10) < 2) {
             broadcastEvent(EVENTS.ERROR, 'Method not supported by this version. (supports)', 'supports');
@@ -832,6 +837,31 @@
             } else {
                 mraidview.createCalendarEvent(params);
             }
+        }
+    };
+
+    mraid.initVpaid = function(vpaidObject){
+        /* introduced in MRAIDv2 Video Addendum v1*/
+        var script = document.createElement('script');
+        script.src = 'mraid-vpaid.js';
+        script.onload = function(e) {
+            mraid.vpaid = mraidVpaid(vpaidObject, mraid.vpaidEventHandler);
+            if (mraid.isViewable()) {
+                mraid.vpaid.startAd();
+            }
+        };
+        document.head.appendChild(script);
+    };
+
+    mraid.vpaidEventHandler = function(event){
+        switch (event){
+            case 'AdError' :
+                // Handle VPAID AdError event here
+                break
+            // case : Add other event to be handled here
+            default:
+                broadcastEvent(EVENTS.INFO, "VPAID Event : " + event);
+                break;
         }
     };
 
