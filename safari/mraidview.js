@@ -538,7 +538,7 @@ INFO mraid.js identification script found
         for (i=0; i<scriptsCount; i++) {
             script = doc.createElement('script');
             script.type = "text/javascript";
-            if ([i].src !== '') {
+            if (scripts[i].src !== '') {
                 script.src = scripts[i].src;
             } else {
                 script.text = scripts[i].text;
