@@ -913,7 +913,9 @@ INFO mraid.js identification script found
                 setResizePropertyValues(properties);
             }
         }
-        adBridge.pushChange({'resizeProperties':resizeProperties});
+        adBridge.pushChange({
+            resizeProperties: resizeProperties
+        });
     };
 
     var setOrientationProperties = function (properties) {
