@@ -211,12 +211,14 @@ div[class~=consoleFrame] {
     background-size: contain;
 }
 #crisp-logo {
-	background-image:url(//crispmedia.com/themes/crispwireless/images/logo.png);
-	background-repeat:no-repeat;
-	width:90px;
-	height:34px;
-    margin-left: auto ;
-    margin-right: auto ;
+    background-image:url(../img/crisp-logo.svg);
+    background-color: black;
+    background-repeat:no-repeat;
+    width: 61px;
+    height: 29px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
     background-size: contain;
 }
 #groups-logo {
