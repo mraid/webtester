@@ -607,9 +607,13 @@
         if (!event) {
             broadcastEvent(EVENTS.ERROR, 'Must specify an event.', 'removeEventListener');
         } else {
-            if (!listener || (typeof(listeners[event]) === 'undefined' || !listeners[event].remove(listener))) {
-                broadcastEvent(EVENTS.ERROR, 'Listener not currently registered for event: ' + event, 'removeEventListener');
-                return;
+            if (listener) {
+                if (typeof(listeners[event]) === 'undefined') {
+                    broadcastEvent(EVENTS.ERROR, 'Listener not currently registered for event: ' + event, 'removeEventListener');
+                    return;
+                }
+
+                listeners[event].remove(listener);
             } else {
                 listeners[event].removeAll();
             }
