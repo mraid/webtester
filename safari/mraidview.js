@@ -82,6 +82,7 @@ INFO mraid.js identification script found
         ERROR               :'error',
         STATECHANGE         :'stateChange',
         VIEWABLECHANGE      :'viewableChange',
+        EXPOSURECHANGE      :'viewableChange',
         SIZECHANGE          :'sizeChange',
     };
 
