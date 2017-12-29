@@ -36,7 +36,7 @@
   var CLOSEPOSITIONS = mraid.CLOSEPOSITIONS = {
     TOPLEFT     : 'top-left',
     TOPRIGHT    : 'top-right',
-    TOPCENTER	: 'top-center',
+    TOPCENTER   : 'top-center',
     BOTTOMLEFT  : 'bottom-left',
     BOTTOMRIGHT : 'bottom-right',
     BOTTOMCENTER: 'bottom-center',
@@ -46,7 +46,7 @@
     var STATES = mraid.STATES = {
         UNKNOWN     :'unknown',
 
-    LOADING		:'loading',
+        LOADING     :'loading',
         DEFAULT     :'default',
         RESIZED     :'resized',
         EXPANDED    :'expanded',
@@ -57,10 +57,11 @@
         INFO                :'info',
         ORIENTATIONCHANGE   :'orientationChange',
 
-        READY				        :'ready',
+        READY               :'ready',
         ERROR               :'error',
         STATECHANGE         :'stateChange',
-        VIEWABLECHANGE		  :'viewableChange',
+        VIEWABLECHANGE      :'viewableChange',
+        EXPOSURECHANGE      :'exposureChange',
         SIZECHANGE          :'sizeChange',
     };
 
@@ -69,8 +70,8 @@
         TEL         :'tel',
         CALENDAR    :'calendar',
         STOREPICTURE:'storePicture',
-        INLINEVIDEO	:'inlineVideo',
-        VPAID    	:'vpaid'
+        INLINEVIDEO :'inlineVideo',
+        VPAID       :'vpaid'
     };
 
     // PRIVATE PROPERTIES (sdk controlled) //////////////////////////////////////////////////////
@@ -132,14 +133,14 @@
         'email':true,
         'calendar':true,
         'storePicture':true,
-    'inlineVideo':true,
+        'inlineVideo':true,
         'orientation':true
     };
 
     var orientation = -1;
     var mraidVersion = VERSIONS.UNKNOWN;
     var screenSize = null;
-  var isViewable = false;
+    var isViewable = false;
 
     // PRIVATE PROPERTIES (internal) //////////////////////////////////////////////////////
 
@@ -430,6 +431,16 @@
             }
             broadcastEvent(EVENTS.VIEWABLECHANGE, isViewable);
         },
+        //*****
+        exposureChange: function(val) {
+            broadcastEvent(EVENTS.INFO, 'setting isExposed to ' + stringify(val));
+            isViewable = val;
+            if (mraid.vpaid && mraid.vpaid.ready && !mraid.vpaid.adStarted && isViewable){
+                mraid.vpaid.startAd();
+            }
+            broadcastEvent(EVENTS.EXPOSURECHANGE, isViewable);
+        },
+        ///////
         orientationProperties:function(val) {
             broadcastEvent(EVENTS.INFO, 'setting orientationProperties to ' + stringify(val));
             for (var i in val) {
