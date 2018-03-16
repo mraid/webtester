@@ -13,39 +13,37 @@
 
     // CONSTANTS ///////////////////////////////////////////////////////////////
 
-  var VERSIONS = mraid.VERSIONS = {
-    UNKNOWN : '0.0',
+    var VERSIONS = mraid.VERSIONS = {
+        UNKNOWN : '0.0',
+        V1  : '1.0',
+        V2  : '2.0',
+        V3  : '3.0'
+    };
 
-    V1  : '1.0',
-    V2  : '2.0'
-  };
+    var PLACEMENTS = mraid.PLACEMENTS = {
+        UNKNOWN      : 'unknown',
+        INLINE       : 'inline',
+        INTERSTITIAL : 'interstitial'
+    };
 
-  var PLACEMENTS = mraid.PLACEMENTS = {
-    UNKNOWN      : 'unknown',
+    var ORIENTATIONS = mraid.ORIENTATIONS = {
+        NONE      : 'none',
+        PORTRAIT  : 'portrait',
+        LANDSCAPE : 'landscape'
+    };
 
-    INLINE       : 'inline',
-    INTERSTITIAL : 'interstitial'
-  };
-
-  var ORIENTATIONS = mraid.ORIENTATIONS = {
-    NONE      : 'none',
-    PORTRAIT  : 'portrait',
-    LANDSCAPE : 'landscape'
-  };
-
-  var CLOSEPOSITIONS = mraid.CLOSEPOSITIONS = {
-    TOPLEFT     : 'top-left',
-    TOPRIGHT    : 'top-right',
-    TOPCENTER   : 'top-center',
-    BOTTOMLEFT  : 'bottom-left',
-    BOTTOMRIGHT : 'bottom-right',
-    BOTTOMCENTER: 'bottom-center',
-    CENTER      : 'center'
-  };
+    var CLOSEPOSITIONS = mraid.CLOSEPOSITIONS = {
+        TOPLEFT     : 'top-left',
+        TOPRIGHT    : 'top-right',
+        TOPCENTER   : 'top-center',
+        BOTTOMLEFT  : 'bottom-left',
+        BOTTOMRIGHT : 'bottom-right',
+        BOTTOMCENTER: 'bottom-center',
+        CENTER      : 'center'
+    };
 
     var STATES = mraid.STATES = {
         UNKNOWN     :'unknown',
-
         LOADING     :'loading',
         DEFAULT     :'default',
         RESIZED     :'resized',
@@ -56,7 +54,6 @@
     var EVENTS = mraid.EVENTS = {
         INFO                :'info',
         ORIENTATIONCHANGE   :'orientationChange',
-
         READY               :'ready',
         ERROR               :'error',
         STATECHANGE         :'stateChange',
@@ -78,7 +75,7 @@
 
     var state = STATES.UNKNOWN;
 
-  var placementType = PLACEMENTS.UNKNOWN;
+    var placementType = PLACEMENTS.UNKNOWN;
 
     var size = {
         width:0,
@@ -92,12 +89,12 @@
         height:0
     };
 
-  var currentPosition = {
-    x:0,
-    y:0,
-    width:0,
-    height:0
-  };
+    var currentPosition = {
+        x:0,
+        y:0,
+        width:0,
+        height:0
+    };
 
     var maxSize = {
         width:0,
@@ -105,27 +102,27 @@
     };
 
     var expandProperties = {
-    width:0,
-    height:0,
-    useCustomClose:false,
-    isModal:true
+        width:0,
+        height:0,
+        useCustomClose:false,
+        isModal:true
     };
 
-  var resizeProperties = {
-    initialized: false,
-    validated: false,
-    width: 0,
-    height: 0,
-    customClosePosition: CLOSEPOSITIONS.TOPRIGHT,
-    offsetX: undefined,
-    offsetY: undefined,
-    allowOffscreen: true
-  };
+    var resizeProperties = {
+        initialized: false,
+        validated: false,
+        width: 0,
+        height: 0,
+        customClosePosition: CLOSEPOSITIONS.TOPRIGHT,
+        offsetX: undefined,
+        offsetY: undefined,
+        allowOffscreen: true
+    };
 
-  var orientationProperties = {
-    allowOrientationChange: true,
-    forceOrientation: ORIENTATIONS.NONE
-  };
+    var orientationProperties = {
+        allowOrientationChange: true,
+        forceOrientation: ORIENTATIONS.NONE
+    };
 
     var supports = {
         'sms':true,
@@ -141,6 +138,7 @@
     var mraidVersion = VERSIONS.UNKNOWN;
     var screenSize = null;
     var isViewable = false;
+    var exposureChange = 0;
 
     // PRIVATE PROPERTIES (internal) //////////////////////////////////////////////////////
 
@@ -431,16 +429,88 @@
             }
             broadcastEvent(EVENTS.VIEWABLECHANGE, isViewable);
         },
-        //*****
         exposureChange: function(val) {
-            broadcastEvent(EVENTS.INFO, 'setting isExposed to ' + stringify(val));
-            isViewable = val;
-            if (mraid.vpaid && mraid.vpaid.ready && !mraid.vpaid.adStarted && isViewable){
-                mraid.vpaid.startAd();
+            var intervalVar;
+
+            if (parseFloat(mraidVersion, 10) < 3) {
+                broadcastEvent(EVENTS.ERROR, 'Event not supported by this version. (exposureChange)', 'exposureChange');
+            } else {
+                function getPosition() {
+                    // INIT
+                    var el = document.getElementById('primary');
+                    var scrollTop = document.getElementsByTagName('body')[0].scrollTop;
+                    var scrollLeft = document.getElementsByTagName('body')[0].scrollLeft;
+                    var viewportWidth = (window.innerWidth || document.documentElement.clientWidth);
+                    var viewportHeight = (window.innerHeight || document.documentElement.clientHeight);
+                    var offsetTop = el.offsetTop;
+                    var offsetLeft = el.offsetLeft;
+                    var dimensions = el.getBoundingClientRect();
+                            
+                    // Fix offsets based on scroll
+                    offsetTop = offsetTop - scrollTop;
+                    offsetLeft = dimensions.x;
+                    
+                    // Build visible dimensions
+                    var visible_dimensions = {width: dimensions.width, height: dimensions.height};
+                    
+                    // Top
+                    if (offsetTop < 0) {
+                        if (Math.abs(offsetTop) > dimensions.height) {
+                            return 0; // Sanity check
+                        } else {
+                            visible_dimensions.height -= Math.abs(offsetTop);
+                        }
+                    }
+                    
+                    // Left
+                    if (offsetLeft < 0) {
+                        if (Math.abs(offsetLeft) > dimensions.width) {
+                            return 0; // Sanity check
+                        } else {
+                            visible_dimensions.width -= Math.abs(offsetLeft);
+                        }
+                    }
+                    
+                    // Bottom
+                    var bottomPos = offsetTop + dimensions.height;
+
+                    if (bottomPos > viewportHeight) {
+                        var diff = bottomPos - viewportHeight;
+
+                        if (diff > dimensions.height) {
+                            return 0; // Sanity check
+                        } else {
+                            visible_dimensions.height -= diff;
+                        }
+                    }
+                    
+                    // Right
+                    var rightPos = offsetLeft + dimensions.width;
+
+                    if (rightPos > viewportWidth) {
+                        var diff = rightPos - viewportWidth;
+
+                        if (diff > dimensions.width) {
+                            return 0; // Sanity check
+                        } else {
+                            visible_dimensions.width -= diff;
+                        }
+                    }
+
+                    var percentage = Math.round((visible_dimensions.width * visible_dimensions.height) / (dimensions.width * dimensions.height) * 100) || 0;
+                    
+                    // Return
+                    broadcastEvent(EVENTS.EXPOSURECHANGE, percentage);
+                    broadcastEvent(EVENTS.INFO, 'setting isExposed to ' + stringify(percentage));
+
+                    if (percentage >= 65) {
+                        window.clearInterval(intervalVar);
+                    }
+                }
+
+                intervalVar = window.setInterval(getPosition, 50);
             }
-            broadcastEvent(EVENTS.EXPOSURECHANGE, isViewable);
         },
-        ///////
         orientationProperties:function(val) {
             broadcastEvent(EVENTS.INFO, 'setting orientationProperties to ' + stringify(val));
             for (var i in val) {
@@ -577,12 +647,13 @@
     // PUBLIC METHODS ////////////////////////////////////////////////////////////////////
 
     mraid.signalReady = function() {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
     broadcastEvent(EVENTS.INFO, 'START READY SIGNAL, setting state to ' + stringify(STATES.DEFAULT));
     state = STATES.DEFAULT;
     broadcastEvent(EVENTS.STATECHANGE, state);
     broadcastEvent(EVENTS.INFO, 'ready event fired');
     broadcastEvent(EVENTS.READY, 'ready event fired');
+    broadcastEvent(EVENTS.EXPOSURECHANGE, 0);
         window.clearInterval(intervalID);
     };
 
@@ -592,17 +663,17 @@
   };
 
     mraid.info = function(message) {
-  /* not in MRAID - unique to mraid-web-tester */
+    /* not in MRAID - unique to mraid-web-tester */
         broadcastEvent(EVENTS.INFO, message);
     };
 
     mraid.error = function(message) {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
         broadcastEvent(EVENTS.ERROR, message);
     };
 
     mraid.addEventListener = function(event, listener) {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
         if (!event || !listener) {
             broadcastEvent(EVENTS.ERROR, 'Both event and listener are required.', 'addEventListener');
         } else if (!contains(event, EVENTS)) {
@@ -614,7 +685,7 @@
     };
 
     mraid.removeEventListener = function(event, listener) {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
         if (!event) {
             broadcastEvent(EVENTS.ERROR, 'Must specify an event.', 'removeEventListener');
         } else {
@@ -636,18 +707,19 @@
     };
 
     mraid.getState = function() {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
         return state;
     };
 
     mraid.getPlacementType = function() {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
         return placementType;
     };
 
   mraid.isViewable = function() {
-  /* introduced in MRAIDv1 */
-    return isViewable;
+    /* introduced in MRAIDv1 */
+        broadcastEvent(EVENTS.EXPOSURECHANGE, 0);
+        return isViewable;
   };
 
     mraid.open = function(URL) {
@@ -660,13 +732,13 @@
     };
 
     mraid.expand = function(URL) {
-      if (placementType === PLACEMENTS.INLINE) {
-          mraidview.expand(URL);
+        if (placementType === PLACEMENTS.INLINE) {
+            mraidview.expand(URL);
         }
     };
 
     /*mraid.expand = function(dimensions, URL) {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
     /*var bOverride = true;
     if (dimensions === undefined) {
       dimensions = {width:mraid.getMaxSize(bOverride).width, height:mraid.getMaxSize(bOverride).height, x:0, y:0};
@@ -678,19 +750,19 @@
     };*/
 
     mraid.getExpandProperties = function() {
-  /* introduced in MRAIDv1 */
-    var props = clone(expandProperties);
-    // if (parseFloat(mraidVersion, 10) < 2) {
-      // delete props.allowOrientationChange;
-      // delete props.forceOrientation;
-      // }
+    /* introduced in MRAIDv1 */
+        var props = clone(expandProperties);
+        // if (parseFloat(mraidVersion, 10) < 2) {
+        // delete props.allowOrientationChange;
+        // delete props.forceOrientation;
+        // }
         return props;
     };
 
     mraid.setExpandProperties = function(properties) {
-  /* introduced in MRAIDv1 */
+    /* introduced in MRAIDv1 */
         if (valid(properties, expandPropertyValidators, 'setExpandProperties')) {
-            mraidview.setExpandProperties(properties);
+        mraidview.setExpandProperties(properties);
         }
     };
 
@@ -699,13 +771,13 @@
         mraidview.close();
     };
 
-  mraid.useCustomClose = function(useCustomCloseIndicator) {
-  /* introduced in MRAIDv1 */
-    mraidview.useCustomClose(useCustomCloseIndicator);
-  };
+    mraid.useCustomClose = function(useCustomCloseIndicator) {
+    /* introduced in MRAIDv1 ignored by MRAIDv3 */
+        mraidview.useCustomClose(useCustomCloseIndicator);
+    };
 
     mraid.resize = function() {
-  /* introduced in MRAIDv2 */
+    /* introduced in MRAIDv2 */
         if (parseFloat(mraidVersion, 10) < 2) {
             broadcastEvent(EVENTS.ERROR, 'Method not supported by this version. (resize)', 'resize');
         } else {

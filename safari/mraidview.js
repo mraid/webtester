@@ -54,7 +54,8 @@ INFO mraid.js identification script found
 
     var VERSIONS = mraidview.VERSIONS = {
         V1  : '1.0',
-        V2  : '2.0'
+        V2  : '2.0',
+        V3  : '3.0'
     };
 
     var PLACEMENTS = mraidview.PLACEMENTS = {
@@ -82,7 +83,7 @@ INFO mraid.js identification script found
         ERROR               :'error',
         STATECHANGE         :'stateChange',
         VIEWABLECHANGE      :'viewableChange',
-        EXPOSURECHANGE      :'viewableChange',
+        EXPOSURECHANGE      :'exposureChange',
         SIZECHANGE          :'sizeChange',
     };
 
@@ -766,7 +767,7 @@ INFO mraid.js identification script found
         var left;
         var top;
 
-        if (mraidview.version == VERSIONS.V2) {
+        if (mraidview.version == VERSIONS.V2 || mraidview.version == VERSIONS.V3) {
             if (adExpandedContainer) {
                 acs.left = [0, 'px'].join('');
                 acs.top = [0, 'px'].join('');
@@ -1144,7 +1145,6 @@ INFO mraid.js identification script found
         }, this);
 
         bridge.addEventListener('resize', function(uri) {
-
             if (state === STATES.EXPANDED) {
                 adFrame.contentWindow.broadcastEvent(EVENTS.ERROR, 'Can not expand a resized ad', 'resize');
                 return;
@@ -1154,6 +1154,7 @@ INFO mraid.js identification script found
 
                 return;
             }
+
             state = STATES.RESIZED;
             showMraidCloseButton(true);
             resizeAd();
@@ -1166,6 +1167,12 @@ INFO mraid.js identification script found
         }, this);
 
         bridge.addEventListener('setExpandProperties', function (properties) {
+            /* introduced in MRAIDv1 ignored by MRAIDv3 - return 'useCustomClose usupported message if V3' */
+            if (properties.useCustomClose && properties.useCustomClose == true && mraidview.version == VERSIONS.V3) {
+                adFrame.contentWindow.broadcastEvent(EVENTS.ERROR, 'Method not supported by this version. (useCustomClose)', 'useCustomClose');
+                properties.useCustomClose = false;
+            }
+
             broadcastEvent(EVENTS.INFO, 'setting expand properties to ' + stringify(properties));
             !properties.width || (expandProperties.width = properties.width);
             !properties.height || (expandProperties.height = properties.height);
@@ -1229,7 +1236,8 @@ INFO mraid.js identification script found
             version: mraidview.version,
             placement: mraidview.placement,
             currentPosition: defaultPosition,
-            isViewable: isAdViewAble()
+            isViewable: isAdViewAble(),
+            exposureChange: 0
         };
 
         bridge.pushChange({

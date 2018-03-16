@@ -9,7 +9,7 @@ The easiest way to use the tool is to navigate to http://mraid-webtester.s3-webs
 PREPARE: One the first screen, provide the properties for your test environment
 
 * Geometry: These are the measurements for your default ad size, maximum ad size, and screen size. You can update these values either by dragging and resizing the preview boxes, or by entering values into the form.
-* API version: You may select between either version 1 of the API or version 2. Most SDKs are Version 2.
+* API version: You may select between either version 1, 2 or 3. Version 3 is really version 2 with the V2 exposureChange event added. Most SDKs are still Version 2.
 * Placement: You may choose between Inline or Interstitial placement as defined by the MRAID specification.
 * Off-Screen: When you choose "Off-Screen", the tester provides pages and navigation to slide your ad into view
 * Native features to emulate: Choose the features that best mirror the type of device you are developing for
@@ -43,7 +43,7 @@ into the web tester when you start it, add an adtag query string with URL encodi
 
 ### MRAID compliance ads
 
-The MRAID Version 2 API requires that any certified container must run the compliance ads developed by the IAB. These ad units are included in this project for your convenience.
+The MRAID Version 2 & 3 API requires that any certified container must run the compliance ads developed by the IAB. These ad units are included in this project for your convenience.
 
 
 ### Reporting a bug
