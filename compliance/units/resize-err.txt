@@ -380,7 +380,7 @@ $tester = {
             buttons = document.getElementsByClassName('button');  //DOM collection of all buttons on the creative
 
         //confirm this MRAID version -- resize is only available after MRAID v2
-        if (version === '2.0') {
+        if (version === '2.0' || version == '3.0') {
             //OK - onclick listener will dispatch to testers
             clickListener = $tester.onclickDispatch;
             $mraid.addEventListener('error', $tester.errorListener);

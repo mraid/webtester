@@ -1,14 +1,15 @@
 ## MRAID WebTester: A Certified MRAID v2 Container
 MRAID WebTester is a community-driven tool to run MRAID ad units in a web environment. This provides a way to confirm that you are using the MRAID design specification correctly even if you don't have an SDK or app. It passes the compliance ad test provided by the IAB.
 
+
 ### Using the tool
-The easiest way to use the tool is to navigate to http://webtester.mraid.org/. This site represents the master branch and you don't need to download any additional files.
+The easiest way to use the tool is to navigate to http://mraid-webtester.s3-website-us-east-1.amazonaws.com/. This site represents the master branch and you don't need to download any additional files.
 
 ===
 PREPARE: One the first screen, provide the properties for your test environment
 
 * Geometry: These are the measurements for your default ad size, maximum ad size, and screen size. You can update these values either by dragging and resizing the preview boxes, or by entering values into the form.
-* API version: You may select between either version 1 of the API or version 2. Most SDKs are Version 2.
+* API version: You may select between either version 1, 2 or 3. Version 3 is really version 2 with the V2 exposureChange event added. Most SDKs are still Version 2.
 * Placement: You may choose between Inline or Interstitial placement as defined by the MRAID specification.
 * Off-Screen: When you choose "Off-Screen", the tester provides pages and navigation to slide your ad into view
 * Native features to emulate: Choose the features that best mirror the type of device you are developing for
@@ -37,12 +38,12 @@ The online web tester provides one integration point: the querystring variable "
  ```<h1>hello world</h1>```
 into the web tester when you start it, add an adtag query string with URL encoding like this:
  
- http://webtester.mraid.org/index.html?adtag=%3Ch1%3Ehello%20world%3C%2Fh1%3E
+ http://mraid-webtester.s3-website-us-east-1.amazonaws.com//index.html?adtag=%3Ch1%3Ehello%20world%3C%2Fh1%3E
 
 
 ### MRAID compliance ads
 
-The MRAID Version 2 API requires that any certified container must run the compliance ads developed by the IAB. These ad units are included in this project for your convenience.
+The MRAID Version 2 & 3 API requires that any certified container must run the compliance ads developed by the IAB. These ad units are included in this project for your convenience.
 
 
 ### Reporting a bug
