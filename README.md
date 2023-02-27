@@ -1,8 +1,11 @@
 ## MRAID WebTester: A Certified MRAID v2 Container
 MRAID WebTester is a community-driven tool to run MRAID ad units in a web environment. This provides a way to confirm that you are using the MRAID design specification correctly even if you don't have an SDK or app. It passes the compliance ad test provided by the IAB.
 
+!! This project is currently unattended and is not scheduled for updates !!
+
 ### Using the tool
-The easiest way to use the tool is to navigate to http://webtester.mraid.org/. This site represents the master branch and you don't need to download any additional files.
+
+!! The online tool at http://webtester.mraid.org/ is no longer maintained. Users wishing to run the webtester should do so locally. !!
 
 ===
 PREPARE: One the first screen, provide the properties for your test environment
